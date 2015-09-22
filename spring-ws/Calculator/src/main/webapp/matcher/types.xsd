@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://www.dare2date.nl/types"
+        xmlns:tns="http://www.dare2date.nl/types"
+        elementFormDefault="qualified">
+
+    <complexType name="Match">
+        <all>
+            <element name="userID" type="unsignedInt"/>
+            <element name="message" type="int"/>
+        </all>
+    </complexType>
+
+    <complexType name="StatusMessage">
+        <all>
+			<element name="state" type="tns:MessageState"/>
+			<element name="message" type="NCName"/>
+        </all>
+    </complexType>
+
+	<complexType name="KeyValuePair">
+        <all>
+		    <element name="name" type ="NCName"/>
+            <element name="value" type ="NCName"/>
+        </all>
+	</complexType>
+
+    <complexType name="HashMap">
+        <sequence>
+            <element name="preferences" type="KeyValuePair" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+
+    <simpleType name="MessageState">
+        <restriction base="NCName">
+            <enumeration value="succeeded"/>
+            <enumeration value="timeOut"/>
+            <enumeration value="databaseError"/>
+            <enumeration value="invalidUserPass"/>
+            <enumeration value="otherProblem"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="SocialMediaType">
+        <restriction base="NCName">
+            <enumeration value="FaceBook"/>
+            <enumeration value="YouTube"/>
+        </restriction>
+    </simpleType>
+
+</schema>
