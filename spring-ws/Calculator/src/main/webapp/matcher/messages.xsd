@@ -7,7 +7,7 @@
 
     <import namespace="http://www.dare2date.nl/types" schemaLocation="types.xsd"/>
  
-	<element name="GetMatchRequest">
+	<element name="getMatchRequest">
         <complexType>
             <all>
                 <element name="userID" type ="unsignedInt" minOccurs="1" maxOccurs="1"/>
@@ -34,7 +34,7 @@
         </complexType>	
 	</element>
 
-	<element name="GetMatchResponse">
+	<element name="getMatchResponse">
         <complexType>
             <sequence>
                 <element name="result" type="types:Match" minOccurs="0" maxOccurs="unbounded"/>
