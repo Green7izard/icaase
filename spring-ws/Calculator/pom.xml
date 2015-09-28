@@ -53,8 +53,8 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <generatePackage>nl.ead.webservice</generatePackage>
-                    <schemaDirectory>${basedir}/src/main/webapp/calculator</schemaDirectory>
+                    <generatePackage>nl.dare2date.matching.orchestration</generatePackage>
+                    <schemaDirectory>${basedir}/src/main/webapp/matcher</schemaDirectory>
                 </configuration>
             </plugin>
         </plugins>
