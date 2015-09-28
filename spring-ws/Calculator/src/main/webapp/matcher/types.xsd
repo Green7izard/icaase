@@ -18,18 +18,6 @@
         </all>
     </complexType>
 
-	<complexType name="KeyValuePair">
-        <all>
-		    <element name="name" type ="NCName"/>
-            <element name="value" type ="NCName"/>
-        </all>
-	</complexType>
-
-    <complexType name="HashMap">
-        <sequence>
-            <element name="preferences" type="KeyValuePair" minOccurs="0" maxOccurs="unbounded"/>
-        </sequence>
-    </complexType>
 
     <simpleType name="MessageState">
         <restriction base="NCName">
@@ -45,6 +33,74 @@
         <restriction base="NCName">
             <enumeration value="FaceBook"/>
             <enumeration value="YouTube"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="Educations">
+        <restriction base="NCName">
+            <enumeration value="elementary"/>
+            <enumeration value="VMBO"/>
+            <enumeration value="HAVO"/>
+            <enumeration value="VWO"/>
+            <enumeration value="MBO"/>
+            <enumeration value="HBO"/>
+            <enumeration value="WO"/>
+            <enumeration value="unknown"/>
+            <enumeration value="notPublished"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="Amount">
+        <restriction base="NCName">
+            <enumeration value="none"/>
+            <enumeration value="few"/>
+            <enumeration value="many"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="Frequency">
+        <restriction base="NCName">
+            <enumeration value="multipeTimesADay"/>
+            <enumeration value="onceADay"/>
+            <enumeration value="severalDaysPerWeek"/>
+            <enumeration value="onceAWeek"/>
+            <enumeration value="severalWeeksPerMonth"/>
+            <enumeration value="onceAMonth"/>
+            <enumeration value="never"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="Gender">
+        <restriction base="NCName">
+            <enumeration value="male"/>
+            <enumeration value="female"/>
+            <enumeration value="notPublished"/>
+            <enumeration value="unknown"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="Religion">
+        <restriction base="NCName">
+            <!-- source: https://en.wikipedia.org/wiki/Major_religious_groups -->
+            <enumeration value="Christianity"/>
+            <enumeration value="Islam"/>
+            <enumeration value="Hinduism"/>
+            <enumeration value="Buddhism"/>
+            <enumeration value="Taoism"/>
+            <enumeration value="Shinto"/>
+            <enumeration value="Sikhism"/>
+            <enumeration value="Judaism"/>
+            <enumeration value="Shamanism"/>
+            <enumeration value="Caodaism"/>
+            <enumeration value="Bahá'í Faith"/>
+            <enumeration value="Jainism"/>
+            <enumeration value="Cheondoism"/>
+            <enumeration value="Hoahaoism"/>
+            <enumeration value="Tenriism"/>
+            <enumeration value="Agnostic"/>
+            <enumeration value="Atheism"/>
+            <enumeration value="other"/>
+            <enumeration value="notPublished"/>
         </restriction>
     </simpleType>
 
