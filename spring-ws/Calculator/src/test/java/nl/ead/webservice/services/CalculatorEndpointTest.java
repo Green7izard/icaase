@@ -1,7 +1,8 @@
 package nl.ead.webservice.services;
 
 import nl.ead.webservice.*;
-import nl.ead.webservice.dao.TempCalculationDao;
+import nl.ead.webservice.dao.CalculationDao;
+import nl.ead.webservice.model.Calculation;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Before;
@@ -10,6 +11,13 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class CalculatorEndpointTest {
+
+    private class TempCalculationDao extends CalculationDao{
+        @Override
+        public void save(Calculation calculation) {
+            //DO NOTHING AT ALL
+        }
+    }
 
     private CalculatorEndpoint calculatorEndpoint;
     private Mockery context = new Mockery();
