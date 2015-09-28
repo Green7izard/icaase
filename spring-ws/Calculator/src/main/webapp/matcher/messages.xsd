@@ -11,7 +11,9 @@
         <complexType>
             <all>
                 <element name="userID" type ="unsignedInt"/>
-                <element name="preferences" type ="types:HashMap"/>
+                <element name="maxAge" type="unsignedInt" minOccurs="0" maxOccurs="1"/>
+                <element name="minAge" type="unsignedInt" minOccurs="0" maxOccurs="1"/>
+
             </all>
         </complexType>	
 	</element>
