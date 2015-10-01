@@ -34,6 +34,12 @@
                       targetNamespace="http://www.han.nl/schemas/calculator/definitions">
         <sws:xsd location="/calculator/messages.xsd" />
     </sws:dynamic-wsdl>
+    <sws:dynamic-wsdl id="matchingservice"
+                      portTypeName="Matcher"
+                      locationUri="/matching/"
+                      targetNamespace="http://www.dare2date.nl/schemas/matching">
+        <sws:xsd location="/matcher/messages.xsd" />
+    </sws:dynamic-wsdl>
     
     <!--This bean gets used to create EntityManagers which can be used for Repositories/DAOs-->
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
