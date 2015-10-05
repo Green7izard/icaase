@@ -30,7 +30,7 @@ public enum Education {
                 return currentValue;
             }
         }
-        return null;
+        return UNKNOWN;
     }
 
     public nl.dare2date.matching.orchestration.Educations toSoap(){

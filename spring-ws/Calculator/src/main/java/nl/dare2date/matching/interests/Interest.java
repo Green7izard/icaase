@@ -39,7 +39,7 @@ public class Interest implements Serializable {
         this.type=type;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
     public void setId( int id ) {

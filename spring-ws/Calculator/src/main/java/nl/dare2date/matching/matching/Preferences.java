@@ -63,4 +63,76 @@ public class Preferences {
     public void setMinimalEducationLevel(Education minimalEducationLevel) {
         this.minimalEducationLevel = minimalEducationLevel;
     }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public long getMaxAge() {
+        if(maxAge>=minAge) {
+            return maxAge;
+        }
+        else{
+            return 200;
+        }
+    }
+
+    public long getMinAge() {
+        if(minAge<18)
+        {
+            return 18;
+        }
+        else {
+            return minAge;
+        }
+    }
+
+    public long getMaxWeight() {
+        if(maxWeight>=getMinWeight()) {
+            return maxWeight;
+        }
+        else{
+            return 1000;
+        }
+    }
+
+    public long getMaxHeight() {
+        if(maxHeight>=getMinHeight()) {
+            return maxHeight;
+        }
+        else {
+            return 300;
+        }
+    }
+
+    public long getMinWeight() {
+        if(minWeight>0) {
+            return minWeight;
+        }
+        else return 0;
+    }
+
+    public long getMinHeight() {
+        if(minHeight<50) {
+            return minHeight;
+        }else{
+            return 50;
+        }
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public Religion getReligion() {
+        return religion;
+    }
+
+    public Education getMinimalEducationLevel() {
+        return minimalEducationLevel;
+    }
 }
