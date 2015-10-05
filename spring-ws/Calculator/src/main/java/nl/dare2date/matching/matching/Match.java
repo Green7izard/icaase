@@ -20,7 +20,7 @@ public class Match implements Comparable<Match> {
     {
         nl.dare2date.matching.orchestration.Match returnVal = new nl.dare2date.matching.orchestration.Match();
         returnVal.setScore(score);
-        returnVal.setUserID(matchedUser.getUserId());
+        returnVal.setUserID(matchedUser.getId());
         return returnVal;
     }
 

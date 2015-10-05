@@ -2,20 +2,21 @@ package nl.dare2date.matching.interests;
 
 
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.Entity;
 import org.hibernate.annotations.Table;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by Bas on 5-10-2015.
  */
 @DynamicUpdate
+@javax.persistence.Entity
 @Table(appliesTo = "INTEREST")
-public class Interest {
+public class Interest implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id")
     private int id;
 

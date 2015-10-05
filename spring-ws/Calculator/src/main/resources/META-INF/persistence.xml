@@ -4,9 +4,11 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence     
 		http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
 	version="1.0">
-	<persistence-unit name="calculator">
+	<persistence-unit name="matcher">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>nl.ead.webservice.model.Calculation</class>
+		<class>nl.dare2date.matching.user.User</class>
+		<class>nl.dare2date.matching.interests.Interest</class>
 		<properties>
             <!-- set value on "create" only on first boot, set it to update after the first boot otherwise
             your database will always be recreated -->
