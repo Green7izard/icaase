@@ -58,24 +58,6 @@
                 </configuration>
             </plugin>
 
-            <plugin>
-                <groupId>org.jvnet.jaxb2.maven2</groupId>
-                <artifactId>maven-jaxb2-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <generatePackage>nl.ead.webservice.services</generatePackage>
-                    <schemaDirectory>${basedir}/src/main/webapp/calculator</schemaDirectory>
-                </configuration>
-            </plugin>
-
-
         </plugins>
     </build>
     

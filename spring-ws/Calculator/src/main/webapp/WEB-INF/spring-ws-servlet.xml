@@ -10,7 +10,7 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
     
     <!--Scan for classes that can be autowired-->
-    <context:component-scan base-package="nl.ead.webservice"/>
+    <context:component-scan base-package="nl.dare2date.matching"/>
     <!--Allow usage of annotation driven webservices with @Endpoint, @RequestPayload, @ResponsePayload etc.-->
     <sws:annotation-driven/>
     <!--Allow usage of @Transactional to run database transactions, used in conjunction with entityManagerFactory and transactionManager beans-->
@@ -22,22 +22,16 @@
         <bean class="org.springframework.ws.soap.server.endpoint.interceptor.SoapEnvelopeLoggingInterceptor"/>
         <bean id="validatingInterceptor"
               class="org.springframework.ws.soap.server.endpoint.interceptor.PayloadValidatingInterceptor">
-            <property name="schema" value="/matching/messages.xsd"/>
+            <property name="schema" value="/matcher/messages.xsd"/>
             <property name="validateRequest" value="true"/>
             <property name="validateResponse" value="true"/>
         </bean>
     </sws:interceptors>
 
-    <sws:dynamic-wsdl id="calculatorservice" 
-                      portTypeName="Calculator"
-                      locationUri="/calculator/"
-                      targetNamespace="http://www.han.nl/schemas/calculator/definitions">
-        <sws:xsd location="/calculator/messages.xsd" />
-    </sws:dynamic-wsdl>
     <sws:dynamic-wsdl id="matchingservice"
-                      portTypeName="Matcher"
+                      portTypeName="Matching"
                       locationUri="/matching/"
-                      targetNamespace="http://www.dare2date.nl/schemas/matching">
+                      targetNamespace="http://www.dare2date.nl/matching">
         <sws:xsd location="/matcher/messages.xsd" />
     </sws:dynamic-wsdl>
     

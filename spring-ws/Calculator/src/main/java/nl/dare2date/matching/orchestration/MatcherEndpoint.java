@@ -1,7 +1,10 @@
 package nl.dare2date.matching.orchestration;
 
+import nl.ead.webservice.services.IMoviePrinter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
+import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 /**
@@ -11,17 +14,25 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 @Endpoint
 public class MatcherEndpoint {
 
-    @PayloadRoot(localPart = "getMatchRequest", namespace = "http://www.dare2date.nl/matching")
-    @ResponsePayload
-    public GetMatchResponse getMatches(GetMatchRequest matchRequest)
-    {
-        return null;
+    private static final String NAMESPACE_URI = "http://www.dare2date.nl/matching";
+
+    @Autowired
+    public MatcherEndpoint(IMoviePrinter moviePrinter){
+
     }
 
-    @PayloadRoot(localPart = "connectSocialMediaRequest", namespace = "http://www.dare2date.nl/matching")
+    @PayloadRoot(localPart = "getMatchRequest", namespace = NAMESPACE_URI)
     @ResponsePayload
-    public ConnectSocialMediaResponse getMatches(ConnectSocialMediaRequest matchRequest)
+    public GetMatchResponse getMatches(@RequestPayload GetMatchRequest matchRequest)
     {
-        return null;
+        return new GetMatchResponse();
+    }
+
+    @PayloadRoot(localPart = "connectSocialMediaRequest", namespace = NAMESPACE_URI)
+    @ResponsePayload
+    public ConnectSocialMediaResponse getMatches(@RequestPayload ConnectSocialMediaRequest matchRequest)
+    {
+
+        return new ConnectSocialMediaResponse();
     }
 }
