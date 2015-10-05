@@ -5,7 +5,7 @@ import nl.dare2date.matching.user.User;
 /**
  * Created by Bas on 5-10-2015.
  */
-public class Match {
+public class Match implements Comparable<Match> {
 
     private User matchedUser;
     private int score;
@@ -24,4 +24,8 @@ public class Match {
         return returnVal;
     }
 
+    @Override
+    public int compareTo(Match o) {
+        return o.score-score;
+    }
 }

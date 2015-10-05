@@ -11,6 +11,7 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -49,6 +50,7 @@ public class MatcherEndpoint {
         prefs.setReligion(nl.dare2date.matching.user.Religion.fromSoap(matchRequest.getReligion()));
 
         List<nl.dare2date.matching.matching.Match> receivedList = matcher.getMatch(matchRequest.getUserID(), prefs);
+        Collections.sort(receivedList);
         GetMatchResponse response = new GetMatchResponse();
         response.result=  new ArrayList<Match>(receivedList.size());
         for(nl.dare2date.matching.matching.Match match: receivedList)
