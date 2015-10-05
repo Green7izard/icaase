@@ -48,4 +48,40 @@ public class MatchTest {
         Assert.assertEquals(two, toSort.get(0));
         Assert.assertEquals(one, toSort.get(1));
     }
+
+    @Test
+    public void testSortEnMasse(){
+        Match a = new Match(null, -1);
+        Match b = new Match(null, 2);
+        Match c = new Match(null, 3);
+        Match d = new Match(null, 4);
+        Match e = new Match(null, 5);
+        Match f = new Match(null, 6);
+        Match g = new Match(null, 7);
+        Match h = new Match(null, 8);
+        Match i = new Match(null, 9);
+        Match j = new Match(null, 10);
+        List<Match> toSort = new ArrayList<Match>(10);
+        toSort.add(c);
+        toSort.add(a);
+        toSort.add(j);
+        toSort.add(h);
+        toSort.add(b);
+        toSort.add(e);
+        toSort.add(i);
+        toSort.add(f);
+        toSort.add(d);
+        toSort.add(g);
+        Collections.sort(toSort);
+        Assert.assertEquals(j, toSort.get(0));
+        Assert.assertEquals(i, toSort.get(1));
+        Assert.assertEquals(h, toSort.get(2));
+        Assert.assertEquals(g, toSort.get(3));
+        Assert.assertEquals(f, toSort.get(4));
+        Assert.assertEquals(e, toSort.get(5));
+        Assert.assertEquals(d, toSort.get(6));
+        Assert.assertEquals(c, toSort.get(7));
+        Assert.assertEquals(b, toSort.get(8));
+        Assert.assertEquals(a, toSort.get(9));
+    }
 }
