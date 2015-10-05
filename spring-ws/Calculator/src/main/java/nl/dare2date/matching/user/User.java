@@ -1,6 +1,6 @@
 package nl.dare2date.matching.user;
 
-import nl.dare2date.matching.Util.HibernateUtil;
+import nl.dare2date.matching.interests.Interest;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.annotations.DynamicUpdate;
@@ -8,6 +8,7 @@ import org.hibernate.annotations.Table;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Bas on 5-10-2015.
@@ -19,8 +20,12 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "user_id")
     private long id;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "USER")
+    @JoinColumn(name = "id")
+    List<Interest> intrests;
 
     @Column(name = "name")
     private String name;
@@ -131,20 +136,11 @@ public class User implements Serializable {
         this.educationLevel = educationLevel;
     }
 
-    public User getUser(Long user_id) {
-        Session session = null;
-        User user = null;
-        try {
-            session = HibernateUtil.getSessionFactory().getCurrentSession();
-            user =  (User) session.get(User.class, user_id);
-            Hibernate.initialize(user);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (session != null && session.isOpen()) {
-                session.close();
-            }
-        }
-        return user;
+    public List<Interest> getIntrests() {
+        return intrests;
+    }
+
+    public void setIntrests(List<Interest> intrests) {
+        this.intrests = intrests;
     }
 }

@@ -17,8 +17,13 @@ public class Interest implements Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name = "id")
-    private int id;
+    @Column(name = "interest_id")
+    private long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    @Column(name = "user_id")
+    private long userId;
 
     @Column(name = "name")
     private String name;
@@ -56,5 +61,9 @@ public class Interest implements Serializable {
 
     public void setType(InterestType type) {
         this.type = type;
+    }
+
+    public long getUserId() {
+        return userId;
     }
 }
