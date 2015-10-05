@@ -50,26 +50,6 @@
         </restriction>
     </simpleType>
 
-    <simpleType name="Amount">
-        <restriction base="NCName">
-            <enumeration value="none"/>
-            <enumeration value="few"/>
-            <enumeration value="many"/>
-        </restriction>
-    </simpleType>
-
-    <simpleType name="Frequency">
-        <restriction base="NCName">
-            <enumeration value="multipeTimesADay"/>
-            <enumeration value="onceADay"/>
-            <enumeration value="severalDaysPerWeek"/>
-            <enumeration value="onceAWeek"/>
-            <enumeration value="severalWeeksPerMonth"/>
-            <enumeration value="onceAMonth"/>
-            <enumeration value="never"/>
-        </restriction>
-    </simpleType>
-
     <simpleType name="Gender">
         <restriction base="NCName">
             <enumeration value="male"/>
@@ -103,5 +83,4 @@
             <enumeration value="notPublished"/>
         </restriction>
     </simpleType>
-
 </schema>

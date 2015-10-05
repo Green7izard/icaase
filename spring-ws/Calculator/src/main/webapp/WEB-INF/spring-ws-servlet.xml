@@ -37,7 +37,7 @@
     
     <!--This bean gets used to create EntityManagers which can be used for Repositories/DAOs-->
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
-        <property name="persistenceUnitName" value="calculator"/>
+        <property name="persistenceUnitName" value="matcher"/>
     </bean>
     <!--This bean gets used to manage the transactions inside the EntityManagers, without it data would not get saved as transactions are never flushed-->
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
@@ -45,7 +45,9 @@
     </bean>
         
     <!-- Small example of how to use a factory bean in Spring. Not really necessary for this case. -->
-    <bean id="moviePrinter" factory-bean="moviePrinterFactory" factory-method="create"/>
+    <bean id="matcher" factory-bean="matcherFactory" factory-method="create"/>
+    <bean id="matcherFactory" class="nl.dare2date.matching.matching.MatcherFactory"/>
 
-    <bean id="moviePrinterFactory" class="nl.ead.webservice.services.MoviePrinterFactory"/>
+    <bean id="interestManager" factory-bean="interestManagerFactory" factory-method="create"/>
+    <bean id="interestManagerFactory" class="nl.dare2date.matching.interests.InterestManagerFactory"/>
 </beans>

@@ -1,5 +1,7 @@
 package nl.dare2date.matching.orchestration;
 
+import nl.dare2date.matching.interests.InterestManager;
+import nl.dare2date.matching.matching.Matcher;
 import nl.ead.webservice.services.IMoviePrinter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -16,9 +18,13 @@ public class MatcherEndpoint {
 
     private static final String NAMESPACE_URI = "http://www.dare2date.nl/matching";
 
-    @Autowired
-    public MatcherEndpoint(IMoviePrinter moviePrinter){
+    private final Matcher matcher;
+    private final InterestManager manager;
 
+    @Autowired
+    public MatcherEndpoint(Matcher matcher, InterestManager interestManager){
+        this.matcher=matcher;
+        this.manager=interestManager;
     }
 
     @PayloadRoot(localPart = "getMatchRequest", namespace = NAMESPACE_URI)
@@ -30,9 +36,15 @@ public class MatcherEndpoint {
 
     @PayloadRoot(localPart = "connectSocialMediaRequest", namespace = NAMESPACE_URI)
     @ResponsePayload
-    public ConnectSocialMediaResponse getMatches(@RequestPayload ConnectSocialMediaRequest matchRequest)
+    public ConnectSocialMediaResponse connectSocialMedia(@RequestPayload ConnectSocialMediaRequest matchRequest)
     {
 
-        return new ConnectSocialMediaResponse();
+        ConnectSocialMediaResponse response = new ConnectSocialMediaResponse();
+        response.setResult(manager.connectSocialMedia(matchRequest.getUserID(),
+                //Point to the Version in the interests because that one is used for internal systems
+                nl.dare2date.matching.interests.SocialMediaConnection.SocialMediaType.fromSoap(matchRequest.getSocialMediaType()),
+                matchRequest.getSocialMediaPassword(),
+                matchRequest.getSocialMediaUserName()).toSoap());
+        return response;
     }
 }

@@ -22,14 +22,6 @@
                 <element name="city" type="NCName" minOccurs="0" maxOccurs="1"/>
                 <element name="religion" type="types:Religion" minOccurs="0" maxOccurs="1"/>
                 <element name="minimalEducationLevel" type="types:Educations" minOccurs="0" maxOccurs="1"/>
-                <element name="hasChilderen" type="boolean" minOccurs="0" maxOccurs="1"/>
-                <element name="tattoos" type="types:Amount" minOccurs="0" maxOccurs="1"/>
-                <element name="piercings" type="types:Amount" minOccurs="0" maxOccurs="1"/>
-                <element name="smokes" type ="types:Frequency" minOccurs="0" maxOccurs="1"/>
-                <element name="drinksAlcohol" type ="types:Frequency" minOccurs="0" maxOccurs="1"/>
-                <element name="games" type ="types:Frequency" minOccurs="0" maxOccurs="1"/>
-                <element name="hasJob" type="boolean" minOccurs="0" maxOccurs="1"/>
-
             </all>
         </complexType>	
 	</element>

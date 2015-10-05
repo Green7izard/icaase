@@ -3,10 +3,10 @@ package nl.ead.webservice.services;
 import nl.ead.webservice.*;
 import nl.ead.webservice.dao.CalculationDao;
 import nl.ead.webservice.model.Calculation;
-import org.jmock.Expectations;
-import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Matchers;
+import org.mockito.Mockito;
 
 import static org.junit.Assert.*;
 
@@ -20,20 +20,17 @@ public class CalculatorEndpointTest {
     }
 
     private CalculatorEndpoint calculatorEndpoint;
-    private Mockery context = new Mockery();
+
+    private IMoviePrinter moviePrinter;
 
     @Before
     public void setUp() throws Exception {
-        final IMoviePrinter moviePrinter = context.mock(IMoviePrinter.class);
+         moviePrinter = Mockito.mock(IMoviePrinter.class);
 
         // moviePrinter is a mock, tempCalculationDao is a stub
         calculatorEndpoint = new CalculatorEndpoint(moviePrinter, new TempCalculationDao());
-
-        // expectations
-        context.checking(new Expectations() {{
-            oneOf (moviePrinter).printMovieDetails("Bond");
-        }});
     }
+
 
     @Test
     public void addingOneAndTwoResultsInThree() throws Exception {
@@ -50,7 +47,7 @@ public class CalculatorEndpointTest {
 
         assertEquals(3, calculatorEndpoint.calculateSumForName(calculateRequest).getResult().getValue());
 
-        context.assertIsSatisfied();
+        Mockito.verify(moviePrinter).printMovieDetails(Matchers.eq("Bond"));
 
     }
 }
