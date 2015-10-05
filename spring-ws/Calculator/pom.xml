@@ -74,6 +74,8 @@
                     <schemaDirectory>${basedir}/src/main/webapp/calculator</schemaDirectory>
                 </configuration>
             </plugin>
+
+
         </plugins>
     </build>
     
@@ -92,7 +94,21 @@
             <version>2.0.3</version>
         </dependency>
         <!--End Spring-WS dependencies-->
-        
+
+        <!-- Google Youtube api -->
+        <dependency>
+            <groupId>com.google.api-client</groupId>
+            <artifactId>google-api-client</artifactId>
+            <version>1.19.1</version>
+        </dependency>
+        <!--Facebook api-->
+        <dependency>
+            <groupId>com.google.code.facebookapi</groupId>
+            <artifactId>facebook-java-api</artifactId>
+            <version>3.0.4</version>
+        </dependency>
+
+
         <!--Start Unit Testing dependencies-->
         <dependency>
             <groupId>junit</groupId>

@@ -22,7 +22,7 @@
         <bean class="org.springframework.ws.soap.server.endpoint.interceptor.SoapEnvelopeLoggingInterceptor"/>
         <bean id="validatingInterceptor"
               class="org.springframework.ws.soap.server.endpoint.interceptor.PayloadValidatingInterceptor">
-            <property name="schema" value="/calculator/messages.xsd"/>
+            <property name="schema" value="/matching/messages.xsd"/>
             <property name="validateRequest" value="true"/>
             <property name="validateResponse" value="true"/>
         </bean>
