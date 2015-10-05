@@ -7,7 +7,7 @@
     <complexType name="Match">
         <all>
             <element name="userID" type="unsignedInt"/>
-            <element name="message" type="int"/>
+            <element name="score" type="int"/>
         </all>
     </complexType>
 

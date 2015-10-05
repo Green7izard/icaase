@@ -2,12 +2,16 @@ package nl.dare2date.matching.orchestration;
 
 import nl.dare2date.matching.interests.InterestManager;
 import nl.dare2date.matching.matching.Matcher;
+import nl.dare2date.matching.matching.Preferences;
 import nl.ead.webservice.services.IMoviePrinter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Endpoint for the matcher service! //FIXME It does absolutly nothing at all!
@@ -31,7 +35,27 @@ public class MatcherEndpoint {
     @ResponsePayload
     public GetMatchResponse getMatches(@RequestPayload GetMatchRequest matchRequest)
     {
-        return new GetMatchResponse();
+        Preferences prefs = new Preferences();
+        prefs.setCity(matchRequest.getCity());
+        prefs.setCountry(matchRequest.getCountry());
+        prefs.setGender(nl.dare2date.matching.user.Gender.fromSoap(matchRequest.getGender()));
+        prefs.setMaxAge(matchRequest.getMaxAge());
+        prefs.setMinAge(matchRequest.getMinAge());
+        prefs.setMaxHeight(matchRequest.getMaxHeight());
+        prefs.setMinHeight(matchRequest.getMinHeight());
+        prefs.setMaxWeight(matchRequest.getMaxWeight());
+        prefs.setMinWeight(matchRequest.getMinWeight());
+        prefs.setMinimalEducationLevel(nl.dare2date.matching.user.Education.fromSoap(matchRequest.getMinimalEducationLevel()));
+        prefs.setReligion(nl.dare2date.matching.user.Religion.fromSoap(matchRequest.getReligion()));
+
+        List<nl.dare2date.matching.matching.Match> receivedList = matcher.getMatch(matchRequest.getUserID(), prefs);
+        GetMatchResponse response = new GetMatchResponse();
+        response.result=  new ArrayList<Match>(receivedList.size());
+        for(nl.dare2date.matching.matching.Match match: receivedList)
+        {
+            response.result.add(match.toSoap());
+        }
+        return response;
     }
 
     @PayloadRoot(localPart = "connectSocialMediaRequest", namespace = NAMESPACE_URI)
