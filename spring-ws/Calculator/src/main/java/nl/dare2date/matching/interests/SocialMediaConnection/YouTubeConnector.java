@@ -13,12 +13,12 @@ public class YouTubeConnector implements SocialMediaConnector{
     private static final String GOOGLE_SECRET ="oTMoXqqsqk3L9Py6EU9t7ieR";
 
     @Override
-    public StatusMessage validate(String smPassword, String smUserName) {
+    public StatusMessage validate(String authToken) {
         return null;
     }
 
     @Override
-    public List<Interest> getInterests() {
+    public List<Interest> getInterests(String authToken) {
         return null;
     }
 }

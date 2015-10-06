@@ -14,7 +14,7 @@ public class InterestManager {
         factory=socialMediaFactory;
     }
 
-    public StatusMessage connectSocialMedia(long userID, SocialMediaType type, String smPassword, String smUserName )
+    public StatusMessage connectSocialMedia(long userID, SocialMediaType type, String smAuthToken)
     {
         //TODO STUFF
         return null;

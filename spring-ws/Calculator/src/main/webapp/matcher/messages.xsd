@@ -40,8 +40,7 @@
             <all>
                 <element name="userID" type ="unsignedInt"/>
                 <element name="socialMediaType" type ="types:SocialMediaType"/>
-                <element name="socialMediaPassword" type ="NCName"/>
-                <element name="socialMediaUserName" type ="NCName"/>
+                <element name="socialMediaAuthenticationToken" type ="NCName"/>
             </all>
         </complexType>
     </element>

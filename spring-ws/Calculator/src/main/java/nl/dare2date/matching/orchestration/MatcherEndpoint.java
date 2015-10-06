@@ -69,8 +69,7 @@ public class MatcherEndpoint {
         response.setResult(manager.connectSocialMedia(matchRequest.getUserID(),
                 //Point to the Version in the interests because that one is used for internal systems
                 nl.dare2date.matching.interests.SocialMediaConnection.SocialMediaType.fromSoap(matchRequest.getSocialMediaType()),
-                matchRequest.getSocialMediaPassword(),
-                matchRequest.getSocialMediaUserName()).toSoap());
+                matchRequest.getSocialMediaAuthenticationToken()).toSoap());
         return response;
     }
 }
