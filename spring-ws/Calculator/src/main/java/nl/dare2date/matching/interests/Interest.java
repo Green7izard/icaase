@@ -16,38 +16,36 @@ import java.io.Serializable;
 @Table(appliesTo = "INTEREST")
 public class Interest implements Serializable {
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "source")
+    SocialMediaType source;
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "interest_id")
     private long id;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @Column(name = "user_id")
     private long userId;
-
     @Column(name = "name")
     private String name;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
     private InterestType type;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name= "source")
-    SocialMediaType source;
+    public Interest() {
+    }
 
-    public Interest(){}
-    public Interest(String name, InterestType type)
-    {
-        this.name=name;
-        this.type=type;
+    public Interest(String name, InterestType type) {
+        this.name = name;
+        this.type = type;
     }
 
     public long getId() {
         return id;
     }
-    public void setId( int id ) {
+
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -71,7 +69,8 @@ public class Interest implements Serializable {
     public long getUserId() {
         return userId;
     }
-    public void setUserId( long userId ) {
+
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 

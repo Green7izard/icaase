@@ -11,22 +11,20 @@ public enum Gender {
 
     private nl.dare2date.matching.orchestration.Gender representation;
 
-    Gender(nl.dare2date.matching.orchestration.Gender representation){
-        this.representation=representation;
+    Gender(nl.dare2date.matching.orchestration.Gender representation) {
+        this.representation = representation;
     }
 
-    public static Gender fromSoap(nl.dare2date.matching.orchestration.Gender type)
-    {
-        for(Gender currentValue : values()){
-            if(currentValue.representation.equals(type))
-            {
+    public static Gender fromSoap(nl.dare2date.matching.orchestration.Gender type) {
+        for (Gender currentValue : values()) {
+            if (currentValue.representation.equals(type)) {
                 return currentValue;
             }
         }
         return null;
     }
 
-    public nl.dare2date.matching.orchestration.Gender toSoap(){
+    public nl.dare2date.matching.orchestration.Gender toSoap() {
         return representation;
     }
 }

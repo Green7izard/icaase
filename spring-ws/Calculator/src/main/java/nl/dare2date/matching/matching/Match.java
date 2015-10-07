@@ -10,14 +10,12 @@ public class Match implements Comparable<Match> {
     private User matchedUser;
     private int score;
 
-    public Match(User matchedUser, int score)
-    {
-        this.score=score;
+    public Match(User matchedUser, int score) {
+        this.score = score;
         this.matchedUser = matchedUser;
     }
 
-    public nl.dare2date.matching.orchestration.Match toSoap()
-    {
+    public nl.dare2date.matching.orchestration.Match toSoap() {
         nl.dare2date.matching.orchestration.Match returnVal = new nl.dare2date.matching.orchestration.Match();
         returnVal.setScore(score);
         returnVal.setUserID(matchedUser.getId());
@@ -26,6 +24,6 @@ public class Match implements Comparable<Match> {
 
     @Override
     public int compareTo(Match o) {
-        return o.score-score;
+        return o.score - score;
     }
 }

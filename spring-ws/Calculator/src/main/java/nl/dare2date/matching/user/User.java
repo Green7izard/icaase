@@ -1,7 +1,6 @@
 package nl.dare2date.matching.user;
 
 import nl.dare2date.matching.interests.Interest;
-import nl.dare2date.matching.interests.SocialMediaConnection.SocialMediaConnector;
 import nl.dare2date.matching.interests.SocialMediaConnection.SocialMediaInformation;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Table;
@@ -18,19 +17,16 @@ import java.util.List;
 @Table(appliesTo = "USER")
 public class User implements Serializable {
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "USER")
+    @JoinColumn(name = "id")
+    List<Interest> interests;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "USER")
+    @JoinColumn(name = "connected_social_media")
+    List<SocialMediaInformation> connectedSocialMedia;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
     private long id;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "USER")
-    @JoinColumn(name = "id")
-    List<Interest> interests;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "USER")
-    @JoinColumn(name = "connected_social_media")
-    List<SocialMediaInformation> connectedSocialMedia;
-
     @Column(name = "name")
     private String name;
 

@@ -20,119 +20,113 @@ public class Preferences {
     private Religion religion;
     private Education minimalEducationLevel;
 
+    public Gender getGender() {
+        return gender;
+    }
+
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public long getMaxAge() {
+        if (maxAge >= minAge) {
+            return maxAge;
+        } else {
+            return 200;
+        }
     }
 
     public void setMaxAge(long maxAge) {
         this.maxAge = maxAge;
     }
 
+    public long getMinAge() {
+        if (minAge < 18) {
+            return 18;
+        } else {
+            return minAge;
+        }
+    }
+
     public void setMinAge(long minAge) {
         this.minAge = minAge;
+    }
+
+    public long getMaxWeight() {
+        if (maxWeight >= getMinWeight()) {
+            return maxWeight;
+        } else {
+            return 1000;
+        }
     }
 
     public void setMaxWeight(long maxWeight) {
         this.maxWeight = maxWeight;
     }
 
-    public void setMinWeight(long minWeight) {
-        this.minWeight = minWeight;
+    public long getMaxHeight() {
+        if (maxHeight >= getMinHeight()) {
+            return maxHeight;
+        } else {
+            return 300;
+        }
     }
 
     public void setMaxHeight(long maxHeight) {
         this.maxHeight = maxHeight;
     }
 
-    public void setMinHeight(long minHeight) {
-        this.minHeight = minHeight;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public void setReligion(Religion religion) {
-        this.religion = religion;
-    }
-
-    public void setMinimalEducationLevel(Education minimalEducationLevel) {
-        this.minimalEducationLevel = minimalEducationLevel;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public long getMaxAge() {
-        if(maxAge>=minAge) {
-            return maxAge;
-        }
-        else{
-            return 200;
-        }
-    }
-
-    public long getMinAge() {
-        if(minAge<18)
-        {
-            return 18;
-        }
-        else {
-            return minAge;
-        }
-    }
-
-    public long getMaxWeight() {
-        if(maxWeight>=getMinWeight()) {
-            return maxWeight;
-        }
-        else{
-            return 1000;
-        }
-    }
-
-    public long getMaxHeight() {
-        if(maxHeight>=getMinHeight()) {
-            return maxHeight;
-        }
-        else {
-            return 300;
-        }
-    }
-
     public long getMinWeight() {
-        if(minWeight>0) {
+        if (minWeight > 0) {
             return minWeight;
-        }
-        else return 0;
+        } else return 0;
+    }
+
+    public void setMinWeight(long minWeight) {
+        this.minWeight = minWeight;
     }
 
     public long getMinHeight() {
-        if(minHeight<50) {
+        if (minHeight < 50) {
             return minHeight;
-        }else{
+        } else {
             return 50;
         }
+    }
+
+    public void setMinHeight(long minHeight) {
+        this.minHeight = minHeight;
     }
 
     public String getCountry() {
         return country;
     }
 
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     public String getCity() {
         return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public Religion getReligion() {
         return religion;
     }
 
+    public void setReligion(Religion religion) {
+        this.religion = religion;
+    }
+
     public Education getMinimalEducationLevel() {
         return minimalEducationLevel;
+    }
+
+    public void setMinimalEducationLevel(Education minimalEducationLevel) {
+        this.minimalEducationLevel = minimalEducationLevel;
     }
 }

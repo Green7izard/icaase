@@ -18,22 +18,20 @@ public enum Education {
 
     private nl.dare2date.matching.orchestration.Educations representation;
 
-    Education(nl.dare2date.matching.orchestration.Educations representation){
-        this.representation=representation;
+    Education(nl.dare2date.matching.orchestration.Educations representation) {
+        this.representation = representation;
     }
 
-    public static Education fromSoap(nl.dare2date.matching.orchestration.Educations type)
-    {
-        for(Education currentValue : values()){
-            if(currentValue.representation.equals(type))
-            {
+    public static Education fromSoap(nl.dare2date.matching.orchestration.Educations type) {
+        for (Education currentValue : values()) {
+            if (currentValue.representation.equals(type)) {
                 return currentValue;
             }
         }
         return UNKNOWN;
     }
 
-    public nl.dare2date.matching.orchestration.Educations toSoap(){
+    public nl.dare2date.matching.orchestration.Educations toSoap() {
         return representation;
     }
 }

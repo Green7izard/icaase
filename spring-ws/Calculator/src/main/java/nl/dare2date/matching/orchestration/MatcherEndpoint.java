@@ -3,7 +3,6 @@ package nl.dare2date.matching.orchestration;
 import nl.dare2date.matching.interests.InterestManager;
 import nl.dare2date.matching.matching.Matcher;
 import nl.dare2date.matching.matching.Preferences;
-import nl.ead.webservice.services.IMoviePrinter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -27,15 +26,14 @@ public class MatcherEndpoint {
     private final InterestManager manager;
 
     @Autowired
-    public MatcherEndpoint(Matcher matcher, InterestManager interestManager){
-        this.matcher=matcher;
-        this.manager=interestManager;
+    public MatcherEndpoint(Matcher matcher, InterestManager interestManager) {
+        this.matcher = matcher;
+        this.manager = interestManager;
     }
 
     @PayloadRoot(localPart = "getMatchRequest", namespace = NAMESPACE_URI)
     @ResponsePayload
-    public GetMatchResponse getMatches(@RequestPayload GetMatchRequest matchRequest)
-    {
+    public GetMatchResponse getMatches(@RequestPayload GetMatchRequest matchRequest) {
         Preferences prefs = new Preferences();
         prefs.setCity(matchRequest.getCity());
         prefs.setCountry(matchRequest.getCountry());
@@ -52,9 +50,8 @@ public class MatcherEndpoint {
         List<nl.dare2date.matching.matching.Match> receivedList = matcher.getMatch(matchRequest.getUserID(), prefs);
         Collections.sort(receivedList);
         GetMatchResponse response = new GetMatchResponse();
-        response.result=  new ArrayList<Match>(receivedList.size());
-        for(nl.dare2date.matching.matching.Match match: receivedList)
-        {
+        response.result = new ArrayList<Match>(receivedList.size());
+        for (nl.dare2date.matching.matching.Match match : receivedList) {
             response.result.add(match.toSoap());
         }
         return response;
@@ -62,8 +59,7 @@ public class MatcherEndpoint {
 
     @PayloadRoot(localPart = "connectSocialMediaRequest", namespace = NAMESPACE_URI)
     @ResponsePayload
-    public ConnectSocialMediaResponse connectSocialMedia(@RequestPayload ConnectSocialMediaRequest matchRequest)
-    {
+    public ConnectSocialMediaResponse connectSocialMedia(@RequestPayload ConnectSocialMediaRequest matchRequest) {
 
         ConnectSocialMediaResponse response = new ConnectSocialMediaResponse();
         response.setResult(manager.connectSocialMedia(matchRequest.getUserID(),

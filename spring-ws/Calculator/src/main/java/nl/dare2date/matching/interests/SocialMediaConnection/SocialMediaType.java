@@ -10,22 +10,20 @@ public enum SocialMediaType {
 
     private nl.dare2date.matching.orchestration.SocialMediaType representation;
 
-    SocialMediaType(nl.dare2date.matching.orchestration.SocialMediaType representation){
-        this.representation=representation;
+    SocialMediaType(nl.dare2date.matching.orchestration.SocialMediaType representation) {
+        this.representation = representation;
     }
 
-    public static SocialMediaType fromSoap(nl.dare2date.matching.orchestration.SocialMediaType type)
-    {
-        for(SocialMediaType currentValue : values()){
-            if(currentValue.representation!=null&&currentValue.representation.equals(type))
-            {
+    public static SocialMediaType fromSoap(nl.dare2date.matching.orchestration.SocialMediaType type) {
+        for (SocialMediaType currentValue : values()) {
+            if (currentValue.representation != null && currentValue.representation.equals(type)) {
                 return currentValue;
             }
         }
         return null;
     }
 
-    public nl.dare2date.matching.orchestration.SocialMediaType toSoap(){
+    public nl.dare2date.matching.orchestration.SocialMediaType toSoap() {
         return representation;
     }
 }

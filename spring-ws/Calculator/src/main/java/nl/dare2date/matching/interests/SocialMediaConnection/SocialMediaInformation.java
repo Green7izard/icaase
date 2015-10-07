@@ -13,25 +13,21 @@ import javax.persistence.*;
 @Table(appliesTo = "SOCIALMEDIACONNECTIONS")
 public class SocialMediaInformation {
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
+    SocialMediaType type;
+    @Column(name = "validated")
+    Boolean validated;
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "interest_id")
     private long id;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @Column(name = "user_id")
     private long userId;
-
     @Column(name = "auth_token")
     private String authToken;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name= "type")
-    SocialMediaType type;
-
-    @Column(name="validated")
-    Boolean validated;
 
     public long getId() {
         return id;
