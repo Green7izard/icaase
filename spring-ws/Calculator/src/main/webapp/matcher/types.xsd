@@ -24,7 +24,8 @@
             <enumeration value="succeeded"/>
             <enumeration value="timeOut"/>
             <enumeration value="databaseError"/>
-            <enumeration value="invalidUserPass"/>
+            <enumeration value="invalidAuthToken"/>
+            <enumeration value="authTokenExpired"/>
             <enumeration value="otherProblem"/>
         </restriction>
     </simpleType>

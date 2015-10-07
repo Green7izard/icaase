@@ -39,13 +39,12 @@ public class EndpointTest {
     public void testConnectSocialMediaConnect(){
         //Set up basic values for the test
         long userId = 5;
-        String password = "TestPW", user = "Fred";
+        String password = "gfdsgfsdgfsdg435435sdfgse46";
         nl.dare2date.matching.orchestration.SocialMediaType type = nl.dare2date.matching.orchestration.SocialMediaType.FACE_BOOK;
         //Create the request
         ConnectSocialMediaRequest request = new ConnectSocialMediaRequest();
-        request.setSocialMediaPassword(password);
+        request.setSocialMediaAuthenticationToken(password);
         request.setSocialMediaType(type);
-        request.setSocialMediaUserName(user);
         request.setUserID(userId);
         //Prepare a return message
         MessageState state = MessageState.DATABASE_ERROR;
@@ -53,11 +52,11 @@ public class EndpointTest {
         //SPy at the statusmessage so that we can check if functions are called
         nl.dare2date.matching.interests.SocialMediaConnection.StatusMessage status = Mockito.spy(new nl.dare2date.matching.interests.SocialMediaConnection.StatusMessage(state, message));
         //Make Mockito return status when the connectsocialmedia is called
-        Mockito.when(interestManager.connectSocialMedia(Matchers.anyLong(), (nl.dare2date.matching.interests.SocialMediaConnection.SocialMediaType) Matchers.any(), Matchers.anyString(), Matchers.anyString())).thenReturn(status);
+        Mockito.when(interestManager.connectSocialMedia(Matchers.anyLong(), (nl.dare2date.matching.interests.SocialMediaConnection.SocialMediaType) Matchers.any(), Matchers.anyString())).thenReturn(status);
         //Do the fucntion we want to test
         ConnectSocialMediaResponse response = endpoint.connectSocialMedia(request);
         // Verify the interaction with out interestmanager mock
-        Mockito.verify(interestManager).connectSocialMedia(Matchers.eq(userId), Matchers.eq(nl.dare2date.matching.interests.SocialMediaConnection.SocialMediaType.fromSoap(type)), Matchers.eq(password), Matchers.eq(user));
+        Mockito.verify(interestManager).connectSocialMedia(Matchers.eq(userId), Matchers.eq(nl.dare2date.matching.interests.SocialMediaConnection.SocialMediaType.fromSoap(type)), Matchers.eq(password));
         //Verfify the transformation
         Mockito.verify(status).toSoap();
         //Check the response

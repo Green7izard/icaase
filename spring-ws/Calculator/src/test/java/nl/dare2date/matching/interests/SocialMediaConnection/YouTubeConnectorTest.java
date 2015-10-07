@@ -9,6 +9,6 @@ public class YouTubeConnectorTest {
 
     @Test
     public void testConnection(){
-        new YouTubeConnector().validate(null, null);
+        new YouTubeConnector().validate(null);
     }
 }
