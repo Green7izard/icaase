@@ -29,7 +29,7 @@ public interface IUserDao {
      * Saves the users data
      * @param user the user to be saved
      */
-    void saveData(User user);
+    User saveData(User user);
 
     /**
      * Saves the interest data
@@ -41,5 +41,5 @@ public interface IUserDao {
      * Saves the social media information for a user
      * @param socialinfo the inforamtion to be stored
      */
-    public void saveSocialMedia(SocialMediaInformation socialinfo);
+    void saveSocialMedia(SocialMediaInformation socialinfo);
 }

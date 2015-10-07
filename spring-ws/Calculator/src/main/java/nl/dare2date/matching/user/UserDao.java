@@ -25,19 +25,21 @@ public class UserDao implements IUserDao {
         return em.find(User.class, id);
     }
 
+    @Override
     @Transactional
-    public void saveData(User user)
-    {
-        em.merge(user);
+    public User saveData(User user) {
+        return em.merge(user);
     }
 
+    @Override
     @Transactional
-    public void saveInterest(Interest interest){
+    public void saveInterest(Interest interest) {
         em.persist(interest);
     }
 
+    @Override
     @Transactional
-    public void saveSocialMedia(SocialMediaInformation interest){
+    public void saveSocialMedia(SocialMediaInformation interest) {
         em.persist(interest);
     }
 
