@@ -13,6 +13,11 @@ public class YouTubeConnector implements SocialMediaConnector {
     private static final String GOOGLE_SECRET = "oTMoXqqsqk3L9Py6EU9t7ieR";
 
     @Override
+    public SocialMediaType getType() {
+        return SocialMediaType.YOUTUBE;
+    }
+
+    @Override
     public StatusMessage validate(SocialMediaInformation information) {
         return null;
     }

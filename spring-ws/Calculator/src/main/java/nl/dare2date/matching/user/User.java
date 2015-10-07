@@ -136,11 +136,11 @@ public class User implements Serializable {
         this.educationLevel = educationLevel;
     }
 
-    public List<Interest> getIntrests() {
+    public List<Interest> getInterests() {
         return interests;
     }
 
-    public void setIntrests(List<Interest> intrests) {
+    public void setInterests(List<Interest> intrests) {
         this.interests = intrests;
     }
 

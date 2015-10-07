@@ -92,6 +92,11 @@ public class FaceBookConnector implements SocialMediaConnector {
         }
     }
 
+    @Override
+    public SocialMediaType getType() {
+        return SocialMediaType.FACEBOOK;
+    }
+
     private InterestType getCategory(String category) {
         switch (category) {
             case "Actor/director":

@@ -24,4 +24,10 @@ public interface SocialMediaConnector {
      * @return a list of Interests
      */
     List<Interest> getInterests(SocialMediaInformation info);
+
+    /**
+     * Return the type of this connector
+     */
+    SocialMediaType getType();
+
 }
