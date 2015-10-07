@@ -37,7 +37,7 @@ public class Matcher {
             numberOfUsersPerThread++;
         }
         for (int i = 0; i < THREADS; i++) {
-            threads[i] = new MatchRunner(matchingUser);
+            threads[i] = new MatchRunner(matchingUser, numberOfUsersPerThread);
             for (int j = 0; j < numberOfUsersPerThread; j++) {
                 if (!users.isEmpty()) {
                     User currentUser = users.get(0);
@@ -47,6 +47,7 @@ public class Matcher {
             }
             threads[i].start();
         }
+        users=null;
         List<Match> returnList = new ArrayList<Match>(users.size());
         for (int i = 0; i < THREADS; i++) {
             try {
@@ -74,10 +75,11 @@ public class Matcher {
          * Create the MatchRunner
          *
          * @param baseUser the user that will be compared to
+         * @param size base size of the list
          */
-        private MatchRunner(User baseUser) {
+        private MatchRunner(User baseUser, int size) {
             this.baseUser = baseUser;
-            users = new ArrayList<User>();
+            users = new ArrayList<User>(size);
         }
 
         /**
@@ -90,6 +92,7 @@ public class Matcher {
                 users.remove(userToMatch);
                 matches.add(userToMatch.match(baseUser));
             }
+            users=null;
         }
     }
 }
