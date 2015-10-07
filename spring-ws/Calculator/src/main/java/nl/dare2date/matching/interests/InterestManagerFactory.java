@@ -10,6 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class InterestManagerFactory {
     @Autowired
     IUserDao userDao;
+
+    /**
+     * Creates a InterestManager
+     * @return a interestManager
+     */
     public InterestManager create() {
         return new InterestManager(new SocialMediaFactory(), userDao);
     }

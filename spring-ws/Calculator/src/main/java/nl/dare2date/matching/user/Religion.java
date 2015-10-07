@@ -30,7 +30,7 @@ public enum Religion {
         this.representation = representation;
     }
 
-    public static Religion fromSoap(nl.dare2date.matching.orchestration.Religion type) {
+    public static Religion fromOrchestration(nl.dare2date.matching.orchestration.Religion type) {
         for (Religion currentValue : values()) {
             if (currentValue.representation.equals(type)) {
                 return currentValue;
@@ -39,7 +39,7 @@ public enum Religion {
         return NOT_PUBLISHED;
     }
 
-    public nl.dare2date.matching.orchestration.Religion toSoap() {
+    public nl.dare2date.matching.orchestration.Religion toOrchestration() {
         return representation;
     }
 }

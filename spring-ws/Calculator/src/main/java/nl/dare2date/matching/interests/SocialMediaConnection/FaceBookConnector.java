@@ -97,6 +97,11 @@ public class FaceBookConnector implements SocialMediaConnector {
         return SocialMediaType.FACEBOOK;
     }
 
+    /**
+     * Turn a facebook category into a Dare2Date category
+     * @param category the facebook category
+     * @return a InterestType
+     */
     private InterestType getCategory(String category) {
         switch (category) {
             case "Actor/director":

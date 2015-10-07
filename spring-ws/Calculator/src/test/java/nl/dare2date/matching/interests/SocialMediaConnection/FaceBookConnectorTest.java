@@ -1,6 +1,5 @@
 package nl.dare2date.matching.interests.SocialMediaConnection;
 
-import junit.framework.Assert;
 import nl.dare2date.matching.orchestration.MessageState;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +25,7 @@ public class FaceBookConnectorTest {
         StatusMessage message;
         info.setAuthToken(TestUser);
         message = facebook.validate(info);
-        assertEquals(MessageState.SUCCEEDED, message.toSoap().getState());
+        assertEquals(MessageState.SUCCEEDED, message.toOrchestration().getState());
         assertTrue(info.isValidated());
     }
 
@@ -35,7 +34,7 @@ public class FaceBookConnectorTest {
     public void ValidateTestNull(){
         StatusMessage message;
         message = facebook.validate(null);
-        assertEquals(MessageState.INVALID_AUTH_TOKEN, message.toSoap().getState());
+        assertEquals(MessageState.INVALID_AUTH_TOKEN, message.toOrchestration().getState());
         assertFalse(info.isValidated());
     }
 
@@ -44,7 +43,7 @@ public class FaceBookConnectorTest {
         StatusMessage message;
         info.setAuthToken("");
         message = facebook.validate(info);
-        assertEquals(MessageState.INVALID_AUTH_TOKEN, message.toSoap().getState());
+        assertEquals(MessageState.INVALID_AUTH_TOKEN, message.toOrchestration().getState());
         assertFalse(info.isValidated());
     }
 
@@ -53,7 +52,7 @@ public class FaceBookConnectorTest {
         StatusMessage message;
         info.setAuthToken("ThisAintGonnaWork");
         message = facebook.validate(info);
-        assertNotEquals(MessageState.SUCCEEDED, message.toSoap().getState());
+        assertNotEquals(MessageState.SUCCEEDED, message.toOrchestration().getState());
         assertFalse(info.isValidated());
     }
 }

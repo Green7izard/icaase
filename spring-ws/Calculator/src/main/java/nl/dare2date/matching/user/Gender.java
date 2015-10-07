@@ -15,7 +15,7 @@ public enum Gender {
         this.representation = representation;
     }
 
-    public static Gender fromSoap(nl.dare2date.matching.orchestration.Gender type) {
+    public static Gender fromOrchestration(nl.dare2date.matching.orchestration.Gender type) {
         for (Gender currentValue : values()) {
             if (currentValue.representation.equals(type)) {
                 return currentValue;
@@ -24,7 +24,7 @@ public enum Gender {
         return null;
     }
 
-    public nl.dare2date.matching.orchestration.Gender toSoap() {
+    public nl.dare2date.matching.orchestration.Gender toOrchestration() {
         return representation;
     }
 }

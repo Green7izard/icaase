@@ -14,7 +14,7 @@ public enum SocialMediaType {
         this.representation = representation;
     }
 
-    public static SocialMediaType fromSoap(nl.dare2date.matching.orchestration.SocialMediaType type) {
+    public static SocialMediaType fromOrchestration(nl.dare2date.matching.orchestration.SocialMediaType type) {
         for (SocialMediaType currentValue : values()) {
             if (currentValue.representation != null && currentValue.representation.equals(type)) {
                 return currentValue;
@@ -23,7 +23,7 @@ public enum SocialMediaType {
         return null;
     }
 
-    public nl.dare2date.matching.orchestration.SocialMediaType toSoap() {
+    public nl.dare2date.matching.orchestration.SocialMediaType toOrchestration() {
         return representation;
     }
 }

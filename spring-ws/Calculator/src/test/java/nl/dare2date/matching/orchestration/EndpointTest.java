@@ -1,7 +1,6 @@
 package nl.dare2date.matching.orchestration;
 
 import nl.dare2date.matching.interests.InterestManager;
-import nl.dare2date.matching.interests.SocialMediaConnection.*;
 import nl.dare2date.matching.matching.Matcher;
 import org.junit.Assert;
 import org.junit.Before;
@@ -56,9 +55,9 @@ public class EndpointTest {
         //Do the fucntion we want to test
         ConnectSocialMediaResponse response = endpoint.connectSocialMedia(request);
         // Verify the interaction with out interestmanager mock
-        Mockito.verify(interestManager).connectSocialMedia(Matchers.eq(userId), Matchers.eq(nl.dare2date.matching.interests.SocialMediaConnection.SocialMediaType.fromSoap(type)), Matchers.eq(password));
+        Mockito.verify(interestManager).connectSocialMedia(Matchers.eq(userId), Matchers.eq(nl.dare2date.matching.interests.SocialMediaConnection.SocialMediaType.fromOrchestration(type)), Matchers.eq(password));
         //Verfify the transformation
-        Mockito.verify(status).toSoap();
+        Mockito.verify(status).toOrchestration();
         //Check the response
         Assert.assertNotNull(response);
         Assert.assertNotNull(response.getResult());

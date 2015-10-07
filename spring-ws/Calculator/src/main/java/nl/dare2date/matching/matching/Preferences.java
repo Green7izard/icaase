@@ -5,7 +5,7 @@ import nl.dare2date.matching.user.Gender;
 import nl.dare2date.matching.user.Religion;
 
 /**
- * Created by Bas on 5-10-2015.
+ * Object that holds preferences
  */
 public class Preferences {
     private Gender gender;

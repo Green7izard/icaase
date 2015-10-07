@@ -2,6 +2,7 @@ package nl.dare2date.matching.user;
 
 import nl.dare2date.matching.interests.Interest;
 import nl.dare2date.matching.interests.SocialMediaConnection.SocialMediaInformation;
+import nl.dare2date.matching.matching.Match;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Table;
 
@@ -150,5 +151,16 @@ public class User implements Serializable {
 
     public void setConnectedSocialMedia(List<SocialMediaInformation> connectedSocialMedia) {
         this.connectedSocialMedia = connectedSocialMedia;
+    }
+
+    /**
+     * Create a match
+     * @param baseUser the user to be matched
+     * @return A match with this as the user and a comparison score
+     */
+    public Match match(User baseUser) {
+        int score = 0;
+        //TODO get a decent score
+        return new Match(this, score);
     }
 }

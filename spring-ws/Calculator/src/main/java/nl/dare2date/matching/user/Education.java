@@ -22,7 +22,7 @@ public enum Education {
         this.representation = representation;
     }
 
-    public static Education fromSoap(nl.dare2date.matching.orchestration.Educations type) {
+    public static Education fromOrchestration(nl.dare2date.matching.orchestration.Educations type) {
         for (Education currentValue : values()) {
             if (currentValue.representation.equals(type)) {
                 return currentValue;
@@ -31,7 +31,7 @@ public enum Education {
         return UNKNOWN;
     }
 
-    public nl.dare2date.matching.orchestration.Educations toSoap() {
+    public nl.dare2date.matching.orchestration.Educations toOrchestration() {
         return representation;
     }
 }
