@@ -5,7 +5,8 @@ package nl.dare2date.matching.interests.SocialMediaConnection;
  */
 public enum SocialMediaType {
     FACEBOOK(nl.dare2date.matching.orchestration.SocialMediaType.FACE_BOOK),
-    YOUTUBE(nl.dare2date.matching.orchestration.SocialMediaType.YOU_TUBE);
+    YOUTUBE(nl.dare2date.matching.orchestration.SocialMediaType.YOU_TUBE),
+    OTHER(null);
 
     private nl.dare2date.matching.orchestration.SocialMediaType representation;
 
@@ -16,7 +17,7 @@ public enum SocialMediaType {
     public static SocialMediaType fromSoap(nl.dare2date.matching.orchestration.SocialMediaType type)
     {
         for(SocialMediaType currentValue : values()){
-            if(currentValue.representation.equals(type))
+            if(currentValue.representation!=null&&currentValue.representation.equals(type))
             {
                 return currentValue;
             }

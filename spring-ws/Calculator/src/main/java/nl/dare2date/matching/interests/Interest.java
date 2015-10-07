@@ -1,6 +1,7 @@
 package nl.dare2date.matching.interests;
 
 
+import nl.dare2date.matching.interests.SocialMediaConnection.SocialMediaType;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Table;
 
@@ -31,6 +32,10 @@ public class Interest implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
     private InterestType type;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name= "source")
+    SocialMediaType source;
 
     public Interest(){}
     public Interest(String name, InterestType type)
@@ -65,5 +70,16 @@ public class Interest implements Serializable {
 
     public long getUserId() {
         return userId;
+    }
+    public void setUserId( long userId ) {
+        this.userId = userId;
+    }
+
+    public SocialMediaType getSource() {
+        return source;
+    }
+
+    public void setSource(SocialMediaType source) {
+        this.source = source;
     }
 }
