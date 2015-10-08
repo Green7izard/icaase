@@ -4,7 +4,7 @@ import nl.dare2date.matching.interests.Interest;
 import nl.dare2date.matching.interests.socialMediaConnection.SocialMediaInformation;
 import nl.dare2date.matching.matching.Match;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.Table;
+import javax.persistence.Table;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,19 +15,20 @@ import java.util.List;
  */
 @DynamicUpdate
 @Entity
-@Table(appliesTo = "user")
+@Table(name = "user")
 public class User implements Serializable {
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "USER")
-    @JoinColumn(name = "id")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     List<Interest> interests;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "USER")
-    @JoinColumn(name = "user_id")
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     List<SocialMediaInformation> connectedSocialMedia;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
     private long id;
+
     @Column(name = "name")
     private String name;
 
@@ -51,6 +52,7 @@ public class User implements Serializable {
     private String city;
 
     @Column(name = "religion")
+    @Enumerated(EnumType.STRING)
     private Religion religion;
 
     @Column(name = "education_level")

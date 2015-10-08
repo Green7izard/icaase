@@ -18,6 +18,8 @@ import java.util.List;
  */
 public class FaceBookConnector implements SocialMediaConnector {
 
+    //https://graph.facebook.com/oauth/access_token?client_id=1661710374113587&redirect_uri=http://localhost:8080&client_secret=20220f5ad0ecab259a29d07e5a873a51&code=public_profile user_about_me
+
     private static final String APP_ID = "1661710374113587";
     private static final String APP_SECRET = "20220f5ad0ecab259a29d07e5a873a51";
 

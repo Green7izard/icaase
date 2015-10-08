@@ -2,7 +2,7 @@ package nl.dare2date.matching.interests.socialMediaConnection;
 
 import nl.dare2date.matching.user.User;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.Table;
+import javax.persistence.Table;
 
 import javax.persistence.*;
 
@@ -10,23 +10,26 @@ import javax.persistence.*;
  * Created by Bas on 7-10-2015.
  */
 @DynamicUpdate
-@javax.persistence.Entity
-@Table(appliesTo = "socialmediaconnection")
+@Entity
+@Table(name = "socialmediaconnection")
 public class SocialMediaInformation {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
     SocialMediaType type;
+
     @Column(name = "validated")
     Boolean validated;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "interest_id")
+    @Column(name = "sm_id")
     private long id;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    @Column(name = "user_id")
-    private User userId;
+    private User user;
+
     @Column(name = "auth_token")
     private String authToken;
 
@@ -39,11 +42,11 @@ public class SocialMediaInformation {
     }
 
     public User getUser() {
-        return userId;
+        return user;
     }
 
     public void setUser(User userId) {
-        this.userId = userId;
+        this.user = userId;
     }
 
     public String getAuthToken() {

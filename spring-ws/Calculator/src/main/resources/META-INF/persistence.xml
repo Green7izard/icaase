@@ -6,14 +6,13 @@
 	version="1.0">
 	<persistence-unit name="matcher">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>nl.ead.webservice.model.Calculation</class>
-		<class>nl.dare2date.matching.user.User</class>
+        <class>nl.dare2date.matching.interests.socialMediaConnection.SocialMediaInformation</class>
 		<class>nl.dare2date.matching.interests.Interest</class>
-		<class>nl.dare2date.matching.interests.socialMediaConnection.SocialMediaInformation</class>
+        <class>nl.dare2date.matching.user.User</class>
 		<properties>
             <!-- set value on "create" only on first boot, set it to update after the first boot otherwise
             your database will always be recreated -->
-			<property name="hibernate.hbm2ddl.auto" value="create" />
+			<property name="hibernate.hbm2ddl.auto" value="validate" />
 			<property name="hibernate.archive.autodetection" value="class, hbm" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />

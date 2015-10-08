@@ -20,7 +20,7 @@ public class FaceBookConnectorTest {
         info.setValidated(false);
     }
 
-    @Test
+    //@Test
     public void ValidateTest(){
         StatusMessage message;
         info.setAuthToken(TestUser);

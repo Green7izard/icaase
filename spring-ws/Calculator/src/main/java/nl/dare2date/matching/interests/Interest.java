@@ -4,7 +4,7 @@ package nl.dare2date.matching.interests;
 import nl.dare2date.matching.interests.socialMediaConnection.SocialMediaType;
 import nl.dare2date.matching.user.User;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.Table;
+import javax.persistence.Table;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,7 +14,7 @@ import java.io.Serializable;
  */
 @DynamicUpdate
 @javax.persistence.Entity
-@Table(appliesTo = "interest")
+@Table(name = "interest")
 public class Interest implements Serializable {
 
     @Enumerated(EnumType.STRING)
@@ -27,8 +27,7 @@ public class Interest implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    @Column(name = "user_id")
-    private User userId;
+    private User user;
 
     @Column(name = "name")
     private String name;
@@ -70,11 +69,11 @@ public class Interest implements Serializable {
     }
 
     public User getUser() {
-        return userId;
+        return user;
     }
 
     public void setUser(User userId) {
-        this.userId = userId;
+        this.user = userId;
     }
 
     public SocialMediaType getSource() {
