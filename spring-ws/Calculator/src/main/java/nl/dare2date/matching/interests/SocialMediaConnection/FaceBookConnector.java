@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Bas on 6-10-2015.
+ * Connector for the facebook API
+ * Uses Facebook4j
  */
 public class FaceBookConnector implements SocialMediaConnector {
 

@@ -54,9 +54,7 @@ public class Matcher {
             try {
                 threads[i].join();
                 for (Match match : threads[i].matches) {
-                    if(match.scoreHigherThen(MIN_SCORE)) {
                         returnList.add(match);
-                    }
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -93,7 +91,10 @@ public class Matcher {
             matches = new ArrayList<Match>(users.size());
             for (User userToMatch : users) {
                 users.remove(userToMatch);
-                matches.add(userToMatch.match(baseUser));
+                Match match =userToMatch.match(baseUser);
+                if(match.scoreHigherThen(MIN_SCORE)) {
+                    matches.add(match);
+                }
             }
             users=null;
         }
