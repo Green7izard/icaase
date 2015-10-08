@@ -41,6 +41,10 @@ approval_prompt=force
 
     @Override
     public StatusMessage validate(SocialMediaInformation information) {
+        if(information==null||information.getAuthToken()==null || information.getAuthToken().isEmpty())
+        {
+            return new StatusMessage(MessageState.INVALID_AUTH_TOKEN, "No authtoken supplied!");
+        }
         String requestUrl = VALIDATE_URL + information.getAuthToken();
         try {
             doGet(requestUrl);
