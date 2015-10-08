@@ -25,7 +25,7 @@ public class FaceBookConnectorTest {
         StatusMessage message;
         info.setAuthToken(TestUser);
         message = facebook.validate(info);
-        assertEquals(MessageState.SUCCEEDED, message.toOrchestration().getState());
+        assertEquals("If this test fails, the TestUser token should be refreshed!",MessageState.SUCCEEDED, message.toOrchestration().getState());
         assertTrue(info.isValidated());
     }
 
