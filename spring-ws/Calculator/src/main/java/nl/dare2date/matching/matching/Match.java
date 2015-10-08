@@ -40,4 +40,14 @@ public class Match implements Comparable<Match> {
     public int compareTo(Match o) {
         return o.score - score;
     }
+
+    /**
+     * Check if the desiredScore is higher then this ones score
+     * @param desiredScore the minimum value of the score
+     * @return true if its higher or equal to, false if its lower
+     */
+    public boolean scoreHigherThen(int desiredScore)
+    {
+        return this.score>=desiredScore;
+    }
 }

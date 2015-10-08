@@ -1,5 +1,6 @@
 package nl.dare2date.matching.interests.SocialMediaConnection;
 
+import nl.dare2date.matching.user.User;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Table;
 
@@ -25,7 +26,7 @@ public class SocialMediaInformation {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @Column(name = "user_id")
-    private long userId;
+    private User userId;
     @Column(name = "auth_token")
     private String authToken;
 
@@ -37,11 +38,11 @@ public class SocialMediaInformation {
         this.id = id;
     }
 
-    public long getUserId() {
+    public User getUser() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public User setUser(User userId) {
         this.userId = userId;
     }
 

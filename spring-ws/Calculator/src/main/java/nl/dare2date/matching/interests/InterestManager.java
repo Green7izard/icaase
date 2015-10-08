@@ -42,7 +42,7 @@ public class InterestManager {
             {
                 return new StatusMessage(MessageState.OTHER_PROBLEM, "UserID not correct");
             }
-            info.setUserId(userID);
+            info.setUser(currentUser);
             currentUser.getConnectedSocialMedia().add(info);
             userDao.saveSocialMedia(info);
             userDao.saveData(currentUser);
@@ -69,7 +69,7 @@ public class InterestManager {
                     }
                 }
                 for (Interest interest : connector.getInterests(info)) {
-                    interest.setUserId(updatedUser.getId());
+                    interest.setUser(user);
                     user.getInterests().add(interest);
                     userDao.saveInterest(interest);
                 }

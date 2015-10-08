@@ -12,6 +12,7 @@ import java.util.List;
  */
 public class Matcher {
     private static final int THREADS = 8;
+    private static final int MIN_SCORE = 50;
     private final IUserDao userDao;
 
     public Matcher(IUserDao userDao) {
@@ -53,7 +54,9 @@ public class Matcher {
             try {
                 threads[i].join();
                 for (Match match : threads[i].matches) {
-                    returnList.add(match);
+                    if(match.scoreHigherThen(MIN_SCORE)) {
+                        returnList.add(match);
+                    }
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();

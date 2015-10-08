@@ -2,6 +2,7 @@ package nl.dare2date.matching.interests;
 
 
 import nl.dare2date.matching.interests.SocialMediaConnection.SocialMediaType;
+import nl.dare2date.matching.user.User;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Table;
 
@@ -23,10 +24,12 @@ public class Interest implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "interest_id")
     private long id;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @Column(name = "user_id")
-    private long userId;
+    private User userId;
+
     @Column(name = "name")
     private String name;
     @Enumerated(EnumType.STRING)
@@ -66,11 +69,11 @@ public class Interest implements Serializable {
         this.type = type;
     }
 
-    public long getUserId() {
+    public User getUser() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public User setUser(User userId) {
         this.userId = userId;
     }
 
@@ -80,5 +83,15 @@ public class Interest implements Serializable {
 
     public void setSource(SocialMediaType source) {
         this.source = source;
+    }
+
+    /**
+     * Check if one interest is equal to another, does not look at the ID or the source
+     * @param other the other interest to compare to
+     * @return true if its equal, false if its not
+     */
+    public boolean isEqualTo(Interest other)
+    {
+        return type == other.type && this.name.equals(other.name);
     }
 }

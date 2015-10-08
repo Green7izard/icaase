@@ -160,7 +160,25 @@ public class User implements Serializable {
      */
     public Match match(User baseUser) {
         int score = 0;
-        //TODO get a decent score
-        return new Match(this, score);
+        for(Interest interest : getInterests())
+        {
+            if(baseUser.hasInterest(interest))
+            {
+                score++;
+            }
+        }
+        return new Match(this, (int)((double)score/getInterests().size())*100);
+    }
+
+    public boolean hasInterest(Interest interest)
+    {
+        for(Interest ownInterest : getInterests())
+        {
+            if(ownInterest.isEqualTo(interest))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
