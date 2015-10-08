@@ -1,4 +1,4 @@
-package nl.dare2date.matching.interests.SocialMediaConnection;
+package nl.dare2date.matching.interests.socialMediaConnection;
 
 /**
  * Created by Bas on 5-10-2015.

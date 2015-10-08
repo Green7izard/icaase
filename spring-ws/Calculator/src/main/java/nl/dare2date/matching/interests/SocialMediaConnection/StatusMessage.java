@@ -1,4 +1,4 @@
-package nl.dare2date.matching.interests.SocialMediaConnection;
+package nl.dare2date.matching.interests.socialMediaConnection;
 
 import nl.dare2date.matching.orchestration.MessageState;
 

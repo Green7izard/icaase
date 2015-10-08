@@ -1,6 +1,6 @@
 package nl.dare2date.matching.interests;
 
-import nl.dare2date.matching.interests.SocialMediaConnection.SocialMediaFactory;
+import nl.dare2date.matching.interests.socialMediaConnection.SocialMediaFactory;
 import nl.dare2date.matching.user.IUserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 

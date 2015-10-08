@@ -9,6 +9,7 @@
 		<class>nl.ead.webservice.model.Calculation</class>
 		<class>nl.dare2date.matching.user.User</class>
 		<class>nl.dare2date.matching.interests.Interest</class>
+		<class>nl.dare2date.matching.interests.socialMediaConnection.SocialMediaInformation</class>
 		<properties>
             <!-- set value on "create" only on first boot, set it to update after the first boot otherwise
             your database will always be recreated -->

@@ -1,6 +1,6 @@
 package nl.dare2date.matching.interests;
 
-import nl.dare2date.matching.interests.SocialMediaConnection.*;
+import nl.dare2date.matching.interests.socialMediaConnection.*;
 import nl.dare2date.matching.orchestration.MessageState;
 import nl.dare2date.matching.user.IUserDao;
 import nl.dare2date.matching.user.User;

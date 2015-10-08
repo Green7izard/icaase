@@ -49,13 +49,13 @@ public class EndpointTest {
         MessageState state = MessageState.DATABASE_ERROR;
         String message = "Failure";
         //SPy at the statusmessage so that we can check if functions are called
-        nl.dare2date.matching.interests.SocialMediaConnection.StatusMessage status = Mockito.spy(new nl.dare2date.matching.interests.SocialMediaConnection.StatusMessage(state, message));
+        nl.dare2date.matching.interests.socialMediaConnection.StatusMessage status = Mockito.spy(new nl.dare2date.matching.interests.socialMediaConnection.StatusMessage(state, message));
         //Make Mockito return status when the connectsocialmedia is called
-        Mockito.when(interestManager.connectSocialMedia(Matchers.anyLong(), (nl.dare2date.matching.interests.SocialMediaConnection.SocialMediaType) Matchers.any(), Matchers.anyString())).thenReturn(status);
+        Mockito.when(interestManager.connectSocialMedia(Matchers.anyLong(), (nl.dare2date.matching.interests.socialMediaConnection.SocialMediaType) Matchers.any(), Matchers.anyString())).thenReturn(status);
         //Do the fucntion we want to test
         ConnectSocialMediaResponse response = endpoint.connectSocialMedia(request);
         // Verify the interaction with out interestmanager mock
-        Mockito.verify(interestManager).connectSocialMedia(Matchers.eq(userId), Matchers.eq(nl.dare2date.matching.interests.SocialMediaConnection.SocialMediaType.fromOrchestration(type)), Matchers.eq(password));
+        Mockito.verify(interestManager).connectSocialMedia(Matchers.eq(userId), Matchers.eq(nl.dare2date.matching.interests.socialMediaConnection.SocialMediaType.fromOrchestration(type)), Matchers.eq(password));
         //Verfify the transformation
         Mockito.verify(status).toOrchestration();
         //Check the response

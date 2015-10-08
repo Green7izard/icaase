@@ -77,7 +77,7 @@ public class MatcherEndpoint {
         ConnectSocialMediaResponse response = new ConnectSocialMediaResponse();
         response.setResult(manager.connectSocialMedia(matchRequest.getUserID(),
                 //Point to the Version in the interests because that one is used for internal systems
-                nl.dare2date.matching.interests.SocialMediaConnection.SocialMediaType.fromOrchestration(matchRequest.getSocialMediaType()),
+                nl.dare2date.matching.interests.socialMediaConnection.SocialMediaType.fromOrchestration(matchRequest.getSocialMediaType()),
                 matchRequest.getSocialMediaAuthenticationToken()).toOrchestration());
         return response;
     }

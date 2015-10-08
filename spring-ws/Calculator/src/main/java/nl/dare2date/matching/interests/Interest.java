@@ -1,7 +1,7 @@
 package nl.dare2date.matching.interests;
 
 
-import nl.dare2date.matching.interests.SocialMediaConnection.SocialMediaType;
+import nl.dare2date.matching.interests.socialMediaConnection.SocialMediaType;
 import nl.dare2date.matching.user.User;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Table;
@@ -14,7 +14,7 @@ import java.io.Serializable;
  */
 @DynamicUpdate
 @javax.persistence.Entity
-@Table(appliesTo = "INTEREST")
+@Table(appliesTo = "interest")
 public class Interest implements Serializable {
 
     @Enumerated(EnumType.STRING)
@@ -73,7 +73,7 @@ public class Interest implements Serializable {
         return userId;
     }
 
-    public User setUser(User userId) {
+    public void setUser(User userId) {
         this.userId = userId;
     }
 

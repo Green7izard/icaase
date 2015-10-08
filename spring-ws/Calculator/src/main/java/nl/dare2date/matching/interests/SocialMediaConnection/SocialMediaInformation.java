@@ -1,4 +1,4 @@
-package nl.dare2date.matching.interests.SocialMediaConnection;
+package nl.dare2date.matching.interests.socialMediaConnection;
 
 import nl.dare2date.matching.user.User;
 import org.hibernate.annotations.DynamicUpdate;
@@ -11,7 +11,7 @@ import javax.persistence.*;
  */
 @DynamicUpdate
 @javax.persistence.Entity
-@Table(appliesTo = "SOCIALMEDIACONNECTIONS")
+@Table(appliesTo = "socialmediaconnection")
 public class SocialMediaInformation {
 
     @Enumerated(EnumType.STRING)
@@ -42,7 +42,7 @@ public class SocialMediaInformation {
         return userId;
     }
 
-    public User setUser(User userId) {
+    public void setUser(User userId) {
         this.userId = userId;
     }
 

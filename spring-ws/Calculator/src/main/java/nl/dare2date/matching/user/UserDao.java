@@ -1,7 +1,7 @@
 package nl.dare2date.matching.user;
 
 import nl.dare2date.matching.interests.Interest;
-import nl.dare2date.matching.interests.SocialMediaConnection.SocialMediaInformation;
+import nl.dare2date.matching.interests.socialMediaConnection.SocialMediaInformation;
 import nl.dare2date.matching.matching.Preferences;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
