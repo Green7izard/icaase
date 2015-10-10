@@ -91,6 +91,6 @@ public class Interest implements Serializable {
      */
     public boolean isEqualTo(Interest other)
     {
-        return type == other.type && this.name.equals(other.name);
+        return type == other.type && this.name.equalsIgnoreCase(other.name);
     }
 }

@@ -64,6 +64,8 @@ public class FaceBookConnector implements SocialMediaConnector {
                     return new StatusMessage(MessageState.OTHER_PROBLEM, "Dare2Date Facebook limit reached");
                 case 467:
                     return new StatusMessage(MessageState.INVALID_AUTH_TOKEN, e.getMessage());
+                case 400:
+                    return new StatusMessage(MessageState.INVALID_AUTH_TOKEN, e.getMessage());
                 default:
                     return new StatusMessage(MessageState.OTHER_PROBLEM, e.getMessage());
             }

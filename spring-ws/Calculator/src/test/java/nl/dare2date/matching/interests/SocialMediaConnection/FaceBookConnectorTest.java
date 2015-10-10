@@ -53,6 +53,7 @@ public class FaceBookConnectorTest {
         info.setAuthToken("ThisAintGonnaWork");
         message = facebook.validate(info);
         assertNotEquals(MessageState.SUCCEEDED, message.toOrchestration().getState());
+        assertEquals(MessageState.INVALID_AUTH_TOKEN, message.toOrchestration().getState());
         assertFalse(info.isValidated());
     }
 }
