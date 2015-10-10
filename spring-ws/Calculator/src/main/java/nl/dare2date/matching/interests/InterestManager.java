@@ -37,7 +37,7 @@ public class InterestManager {
         info.setType(type);
         StatusMessage returnVal = factory.validate(info);
         if (info.isValidated()) {
-            User currentUser = userDao.getUser(userID);
+            final User currentUser = userDao.getUser(userID);
             if(currentUser==null)
             {
                 return new StatusMessage(MessageState.OTHER_PROBLEM, "UserID not correct");
@@ -46,8 +46,13 @@ public class InterestManager {
             currentUser.getConnectedSocialMedia().add(info);
             userDao.saveSocialMedia(info);
             userDao.saveData(currentUser);
-            //Turn this into a async?
-            updateInterests(currentUser);
+            new Thread(new Runnable(){
+                @Override
+                public void run() {
+                    updateInterests(currentUser);
+                }
+            }).start();
+
         }
         return returnVal;
     }

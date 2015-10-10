@@ -4,7 +4,9 @@ import nl.dare2date.matching.orchestration.MessageState;
 import nl.dare2date.matching.user.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Factory class for the social media connectors
@@ -12,20 +14,30 @@ import java.util.List;
 public class SocialMediaFactory {
 
     /**
+     * The classes
+     */
+    private static Map<SocialMediaType, SocialMediaConnector> classes=  new HashMap<SocialMediaType, SocialMediaConnector>();
+
+    static{
+        classes.put(SocialMediaType.FACEBOOK, new FaceBookConnector());
+        classes.put(SocialMediaType.YOUTUBE, new YouTubeConnector());
+    }
+    /**
      * Gets a connector
      *
      * @param type type of desired social media
      * @return a connector if correct, null if not correct
      */
     public SocialMediaConnector getConnector(SocialMediaType type) {
-        switch (type) {
+        /*switch (type) {
             case FACEBOOK:
                 return new FaceBookConnector();
             case YOUTUBE:
                 return new YouTubeConnector();
             default:
                 return null;
-        }
+        }*/
+        return classes.get(type);
     }
 
     /**
