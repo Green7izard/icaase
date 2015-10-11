@@ -62,6 +62,14 @@
     </build>
     
     <dependencies>
+
+        <!--Default java servlet api-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+        </dependency>
+
         <!--Start Spring-WS dependencies-->
         <!--Spring-WS-->
         <dependency>
