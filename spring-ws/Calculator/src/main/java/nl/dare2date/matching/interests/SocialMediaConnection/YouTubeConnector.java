@@ -35,7 +35,7 @@ approval_prompt=force
 
     private static final String GOOGLE_ID = "423827042740-6o5c3tue58ta7m7ovf93cglg3kcnnhce.apps.googleusercontent.com";
     private static final String GOOGLE_SECRET = "oTMoXqqsqk3L9Py6EU9t7ieR";
-    
+
     private static final String GOOGLE_URL = "https://www.googleapis.com/";
     //private static final String GOOGLE_URL = "http://localhost:8080/cheating/";
 

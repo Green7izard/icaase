@@ -29,7 +29,7 @@ public class CheatServer extends HttpServletBean {
         }
         if(req.getRequestURI().contains(youtubePart))
         {
-            reactToYoutube(req.getRequestURI().replace(youtubePart, ""), resp);
+            reactToYoutube(req.getRequestURI(), resp);
             return;
         }
 
@@ -92,7 +92,7 @@ public class CheatServer extends HttpServletBean {
 
 
     private void reactToYoutube(String requestURI, HttpServletResponse resp) throws IOException {
-        if(requestURI.toUpperCase().contains("oauth2"))
+        if(requestURI.toLowerCase().contains("oauth2"))
         {
             if(requestURI.toLowerCase().contains("test")) {
                 resp.setStatus(200);
@@ -104,7 +104,7 @@ public class CheatServer extends HttpServletBean {
             }
             return;
         }
-        else if(requestURI.toUpperCase().contains("subscriptions"))
+        else if(requestURI.toLowerCase().contains("subscriptions"))
         {
             resp.getWriter().append(subscription_reponse_header);
             String[] possibles = requestURI.split("=");
@@ -125,7 +125,7 @@ public class CheatServer extends HttpServletBean {
             resp.setStatus(200);
             return;
         }
-        else if(requestURI.toUpperCase().contains("guideCategories"))
+        else if(requestURI.toLowerCase().contains("guidecategories"))
         {
             resp.getWriter().append(category_response_header);
             String[] possibles = requestURI.split("=");
@@ -167,7 +167,7 @@ public class CheatServer extends HttpServletBean {
             YouTubeConnector conn = new YouTubeConnector();
 
             Field urlfield = YouTubeConnector.class.getDeclaredField("GOOGLE_URL");
-            modifiersField.setInt(urlfield, Modifier.PUBLIC|Modifier.STATIC);
+            modifiersField.setInt(urlfield, Modifier.PUBLIC | Modifier.STATIC);
             urlfield.setAccessible(true);
             urlfield.set(null, YOUTUBEURL);
             resp.getWriter().append("Finished the Youtube URL: " + urlfield.get(conn) + "\n");
@@ -176,16 +176,16 @@ public class CheatServer extends HttpServletBean {
             modifiersField.setInt(validate, Modifier.PUBLIC|Modifier.STATIC);
             urlfield.setAccessible(true);
             validate.set(null, YOUTUBEURL + "oauth2?access_token=" + YouTubeConnector.AUTH_TOKEN_MARK);
-            resp.getWriter().append("Finished the validate URL: " + validate.get(conn)+ "\n");
+            resp.getWriter().append("Finished the validate URL: " + validate.get(conn) + "\n");
 
             Field subscription = YouTubeConnector.class.getDeclaredField("GET_SUBSCRIPTIONS");
             modifiersField.setInt(subscription, Modifier.PUBLIC|Modifier.STATIC);
             subscription.setAccessible(true);
             subscription.set(null, YOUTUBEURL + "subscriptions?token=" + YouTubeConnector.AUTH_TOKEN_MARK);
-            resp.getWriter().append("Finished the subscription request URL: " + subscription.get(conn)+ "\n");
+            resp.getWriter().append("Finished the subscription request URL: " + subscription.get(conn) + "\n");
 
             Field category = YouTubeConnector.class.getDeclaredField("GET_CATEGORY");
-            modifiersField.setInt(category, Modifier.PUBLIC|Modifier.STATIC);
+            modifiersField.setInt(category, Modifier.PUBLIC | Modifier.STATIC);
             category.setAccessible(true);
             category.set(null, YOUTUBEURL + "guideCategories=" + YouTubeConnector.ID_MARK);
             resp.getWriter().append("Finished the category request: " + category.get(conn)+ "\n");
