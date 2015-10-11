@@ -29,7 +29,7 @@ public class CheatServer extends HttpServletBean {
         }
         if(req.getRequestURI().contains(youtubePart))
         {
-            reactToYoutube(req.getRequestURI(), resp);
+            reactToYoutube(req, resp);
             return;
         }
 
@@ -91,10 +91,10 @@ public class CheatServer extends HttpServletBean {
 
 
 
-    private void reactToYoutube(String requestURI, HttpServletResponse resp) throws IOException {
-        if(requestURI.toLowerCase().contains("oauth2"))
+    private void reactToYoutube(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        if(req.getRequestURI().toLowerCase().contains("oauth2"))
         {
-            if(requestURI.toLowerCase().contains("test")) {
+            if(req.getParameter("access_token").toLowerCase().contains("test")) {
                 resp.setStatus(200);
                 resp.getWriter().append("Successfully Authenticated!");
             }
@@ -104,11 +104,10 @@ public class CheatServer extends HttpServletBean {
             }
             return;
         }
-        else if(requestURI.toLowerCase().contains("subscriptions"))
+        else if(req.getRequestURI().toLowerCase().contains("subscriptions"))
         {
             resp.getWriter().append(subscription_reponse_header);
-            String[] possibles = requestURI.split("=");
-            String user = possibles[possibles.length-1];
+            String user = req.getParameter("access_token");
             if(user.equalsIgnoreCase("test1"))
             {
                 resp.getWriter().append(subscription_reponse_body.replaceAll("$id$", "channel1").replaceAll("$title$", "testing1"));
@@ -125,22 +124,21 @@ public class CheatServer extends HttpServletBean {
             resp.setStatus(200);
             return;
         }
-        else if(requestURI.toLowerCase().contains("guidecategories"))
+        else if(req.getRequestURI().toLowerCase().contains("guidecategories"))
         {
             resp.getWriter().append(category_response_header);
-            String[] possibles = requestURI.split("=");
-            String user = possibles[possibles.length-1];
+            String user = req.getParameter("id");
             if(user.equalsIgnoreCase("channel1"))
             {
-                resp.getWriter().append(subscription_reponse_body.replaceAll("$id$", "channel1").replaceAll("$title$", "testing1"));
+                resp.getWriter().append(subscription_reponse_body.replaceAll("$title$", "Movies"));
             }
             else if(user.equalsIgnoreCase("test2"))
             {
-                resp.getWriter().append(subscription_reponse_body.replaceAll("$id$", "channel2").replaceAll("$title$", "testing2"));
+                resp.getWriter().append(subscription_reponse_body.replaceAll("$title$", "Music"));
             }
             if(user.equalsIgnoreCase("test3"))
             {
-                resp.getWriter().append(subscription_reponse_body.replaceAll("$id$", "channel3").replaceAll("$title$", "testing3"));
+                resp.getWriter().append(subscription_reponse_body.replaceAll("$title$", "test"));
             }
 
             resp.getWriter().append(list_reponse_tail);
