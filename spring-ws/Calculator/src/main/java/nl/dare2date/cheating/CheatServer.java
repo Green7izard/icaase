@@ -108,19 +108,50 @@ public class CheatServer extends HttpServletBean {
         {
             resp.getWriter().append(subscription_reponse_header);
             String user = req.getParameter("access_token");
+            String response = "";
             if(user.equalsIgnoreCase("test1"))
             {
-                resp.getWriter().append(subscription_reponse_body.replaceAll("$id$", "channel1").replaceAll("$title$", "testing1"));
+                response=subscription_reponse_body;
+                do
+                {
+                    response=response.replace("$id$", "channel1");
+                }
+                while(response.contains("$id$"));
+                do
+                {
+                    response=response.replace("$title$", "testing1");
+                }
+                while(response.contains("$title$"));
             }
             else if(user.equalsIgnoreCase("test2"))
             {
-                resp.getWriter().append(subscription_reponse_body.replaceAll("$id$", "channel2").replaceAll("$title$", "testing2"));
+                response=subscription_reponse_body;
+                do
+                {
+                    response=response.replace("$id$", "channel2");
+                }
+                while(response.contains("$id$"));
+                do
+                {
+                    response=response.replace("$title$", "testing2");
+                }
+                while(response.contains("$title$"));
             }
             if(user.equalsIgnoreCase("test3"))
             {
-                resp.getWriter().append(subscription_reponse_body.replaceAll("$id$", "channel3").replaceAll("$title$", "testing3"));
+                response=subscription_reponse_body;
+                do
+                {
+                    response=response.replace("$id$", "channel3");
+                }
+                while(response.contains("$id$"));
+                do
+                {
+                    response=response.replace("$title$", "testing3");
+                }
+                while(response.contains("$title$"));
             }
-            resp.getWriter().append(list_reponse_tail);
+            resp.getWriter().append(response+list_reponse_tail);
             resp.setStatus(200);
             return;
         }
@@ -130,15 +161,15 @@ public class CheatServer extends HttpServletBean {
             String user = req.getParameter("id");
             if(user.equalsIgnoreCase("channel1"))
             {
-                resp.getWriter().append(subscription_reponse_body.replaceAll("$title$", "Movies"));
+                resp.getWriter().append(subscription_reponse_body.replace("$title$", "Movies"));
             }
             else if(user.equalsIgnoreCase("test2"))
             {
-                resp.getWriter().append(subscription_reponse_body.replaceAll("$title$", "Music"));
+                resp.getWriter().append(subscription_reponse_body.replace("$title$", "Music"));
             }
             if(user.equalsIgnoreCase("test3"))
             {
-                resp.getWriter().append(subscription_reponse_body.replaceAll("$title$", "test"));
+                resp.getWriter().append(subscription_reponse_body.replace("$title$", "test"));
             }
 
             resp.getWriter().append(list_reponse_tail);
