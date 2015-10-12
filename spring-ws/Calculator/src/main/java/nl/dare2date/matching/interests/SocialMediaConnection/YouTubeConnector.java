@@ -36,15 +36,15 @@ approval_prompt=force
     private static final String GOOGLE_ID = "423827042740-6o5c3tue58ta7m7ovf93cglg3kcnnhce.apps.googleusercontent.com";
     private static final String GOOGLE_SECRET = "oTMoXqqsqk3L9Py6EU9t7ieR";
 
-    //private static final String GOOGLE_URL = "https://www.googleapis.com/";
-    private static final String GOOGLE_URL = "http://localhost:8080/cheating/";
+    private static final String GOOGLE_URL = "https://www.googleapis.com/";
+    //private static final String GOOGLE_URL = "http://localhost:8080/cheating/";
 
     private static final String YOUTUBE_URL = GOOGLE_URL+"youtube/v3/";
     public static final String AUTH_TOKEN_MARK = "${AUTH_TOKEN}";
 
 
-    //private static final String VALIDATE_URL = GOOGLE_URL +"oauth2/v1/tokeninfo?access_token="+AUTH_TOKEN_MARK;
-    private static final String VALIDATE_URL = YOUTUBE_URL +"oauth2/v1/tokeninfo?access_token="+AUTH_TOKEN_MARK;
+    private static final String VALIDATE_URL = GOOGLE_URL +"oauth2/v1/tokeninfo?access_token="+AUTH_TOKEN_MARK;
+     //private static final String VALIDATE_URL = YOUTUBE_URL +"oauth2/v1/tokeninfo?access_token="+AUTH_TOKEN_MARK;
 
     private static final String GET_SUBSCRIPTIONS = YOUTUBE_URL+ "subscriptions?part=snippet&mine=true&access_token="+AUTH_TOKEN_MARK+"&key="+GOOGLE_ID;
     public static final String ID_MARK = "${ID}";
