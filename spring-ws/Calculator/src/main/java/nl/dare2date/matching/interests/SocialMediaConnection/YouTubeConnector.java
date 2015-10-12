@@ -90,15 +90,17 @@ approval_prompt=force
                         Interest interest = new Interest();
                         interest.setSource(this.getType());
                         JSONObject snippet = array.getJSONObject(i).getJSONObject("Snippet");
+                        System.out.println("Got snippet");
                         interest.setName(snippet.getString("title"));
                         String channelID = snippet.getString("channelId");
                         JSONArray categories = new JSONObject(doGet(GET_CATEGORY.replace(ID_MARK, channelID))).getJSONArray("items");
+                        System.out.println("Got category");
                         interest.setType(getCategory(categories.getJSONObject(0).getJSONObject("snippet").getString("title")));
                         interests.add(interest);
                     }
                     catch(Exception e)
                     {
-                        
+                        System.out.println("Got error: " +e.getMessage());
                     }
                 }
 
