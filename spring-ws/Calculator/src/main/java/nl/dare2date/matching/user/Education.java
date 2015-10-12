@@ -28,7 +28,7 @@ public enum Education {
                 return currentValue;
             }
         }
-        return UNKNOWN;
+        return null;
     }
 
     public nl.dare2date.matching.orchestration.Educations toOrchestration() {

@@ -37,19 +37,19 @@ public class Matcher {
         if (users.size() % THREADS > 0) {
             numberOfUsersPerThread++;
         }
+        List<Match> returnList = new ArrayList<Match>(users.size());
         for (int i = 0; i < THREADS; i++) {
             threads[i] = new MatchRunner(matchingUser, numberOfUsersPerThread);
             for (int j = 0; j < numberOfUsersPerThread; j++) {
                 if (!users.isEmpty()) {
                     User currentUser = users.get(0);
-                    users.remove(0);
+                    users.remove(currentUser);
                     threads[i].users.add(currentUser);
                 }
             }
             threads[i].start();
         }
         users=null;
-        List<Match> returnList = new ArrayList<Match>(users.size());
         for (int i = 0; i < THREADS; i++) {
             try {
                 threads[i].join();

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
@@ -18,36 +19,40 @@ import java.util.List;
 public class UserDao implements IUserDao {
 
     @PersistenceContext
-    private EntityManager em;
+    private EntityManagerFactory em;
 
     @Override
     @Transactional
     public User getUser(long id) {
-        return em.find(User.class, id);
+        return em.createEntityManager().find(User.class, id);
     }
 
     @Override
     @Transactional
     public User saveData(User user) {
-        return em.merge(user);
+        return em.createEntityManager().merge(user);
     }
 
     @Override
     @Transactional
     public void saveInterest(Interest interest) {
-        em.persist(interest);
+        em.createEntityManager().persist(interest);
     }
 
     @Override
     @Transactional
+    public void deleteInterest(Interest interest){em.createEntityManager().remove(interest);}
+
+    @Override
+    @Transactional
     public void saveSocialMedia(SocialMediaInformation interest) {
-        em.persist(interest);
+        em.createEntityManager().persist(interest);
     }
 
     @Override
     public List<User> getUsers(long ownId, Preferences prefs) {
         //Create hql string
-        String hql = "from USER where gender = :gender and (age >= :minage and age<=:maxage) and (height >= :minheight and height<=:maxheight) and (weight >= :minweight and weight<=:maxweight)";
+        String hql = "from User where gender = :gender and (age >= :minage and age<=:maxage) and (height >= :minheight and height<=:maxheight) and (weight >= :minweight and weight<=:maxweight) and user_id != :user_id";
        //It is possible that these values havent been filled out
         if(prefs.getCity()!=null && !prefs.getCity().isEmpty())
         {
@@ -66,9 +71,10 @@ public class UserDao implements IUserDao {
             hql += " and education_level > :education_level";
         }
         //Create the query
-        Query query = em.createQuery(hql);
+        Query query = em.createEntityManager().createQuery(hql);
         //Protected way to input the parameters
-        query.setParameter("gender", prefs.getGender().toString());
+        query.setParameter("user_id", ownId);
+        query.setParameter("gender", prefs.getGender());
         query.setParameter("minage", prefs.getMinAge());
         query.setParameter("maxage", prefs.getMaxAge());
         query.setParameter("minheight", prefs.getMinHeight());
@@ -86,11 +92,11 @@ public class UserDao implements IUserDao {
         }
         if(prefs.getReligion()!=null)
         {
-            query.setParameter("religion", prefs.getReligion().toString());
+            query.setParameter("religion", prefs.getReligion());
         }
         if(prefs.getMinimalEducationLevel()!=null)
         {
-            query.setParameter("education_level", prefs.getMinimalEducationLevel().toString());
+            query.setParameter("education_level", prefs.getMinimalEducationLevel());
         }
         //Get the result
         return query.getResultList();

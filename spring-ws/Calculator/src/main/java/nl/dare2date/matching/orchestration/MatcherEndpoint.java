@@ -47,12 +47,48 @@ public class MatcherEndpoint {
         prefs.setCity(matchRequest.getCity());
         prefs.setCountry(matchRequest.getCountry());
         prefs.setGender(nl.dare2date.matching.user.Gender.fromOrchestration(matchRequest.getGender()));
-        prefs.setMaxAge(matchRequest.getMaxAge());
-        prefs.setMinAge(matchRequest.getMinAge());
-        prefs.setMaxHeight(matchRequest.getMaxHeight());
-        prefs.setMinHeight(matchRequest.getMinHeight());
-        prefs.setMaxWeight(matchRequest.getMaxWeight());
-        prefs.setMinWeight(matchRequest.getMinWeight());
+        if(matchRequest.getMaxAge()!=null) {
+            prefs.setMaxAge(matchRequest.getMaxAge().longValue());
+        }
+        else
+        {
+            prefs.setMaxAge(200);
+        }
+        if(matchRequest.getMinAge()!=null) {
+            prefs.setMinAge(matchRequest.getMinAge().longValue());
+        }
+        else
+        {
+            prefs.setMinAge(18);
+        }
+        if(matchRequest.getMaxHeight()!=null) {
+            prefs.setMaxHeight(matchRequest.getMaxHeight().longValue());
+        }
+        else
+        {
+            prefs.setMaxHeight(500);
+        }
+        if(matchRequest.getMinHeight()!=null) {
+            prefs.setMinHeight(matchRequest.getMinHeight().longValue());
+        }
+        else
+        {
+            prefs.setMinHeight(50);
+        }
+        if(matchRequest.getMaxWeight()!=null) {
+            prefs.setMaxWeight(matchRequest.getMaxWeight().longValue());
+        }
+        else
+        {
+            prefs.setMaxWeight(500);
+        }
+        if(matchRequest.getMinWeight()!=null) {
+            prefs.setMinWeight(matchRequest.getMinWeight().longValue());
+        }
+        else
+        {
+            prefs.setMinWeight(30);
+        }
         prefs.setMinimalEducationLevel(nl.dare2date.matching.user.Education.fromOrchestration(matchRequest.getMinimalEducationLevel()));
         prefs.setReligion(nl.dare2date.matching.user.Religion.fromOrchestration(matchRequest.getReligion()));
 

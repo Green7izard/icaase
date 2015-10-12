@@ -79,7 +79,7 @@ approval_prompt=force
         {
             try {
                 JSONObject subscriptions = new JSONObject(doGet(GET_SUBSCRIPTIONS.replace(AUTH_TOKEN_MARK, information.getAuthToken())));
-                if (subscriptions.isNull("error")) {
+                if (!subscriptions.isNull("error")) {
                     information.setValidated(false);
                     return new ArrayList<Interest>(0);
                 }
@@ -89,7 +89,7 @@ approval_prompt=force
                     try {
                         Interest interest = new Interest();
                         interest.setSource(this.getType());
-                        JSONObject snippet = array.getJSONObject(i).getJSONObject("Snippet");
+                        JSONObject snippet = array.getJSONObject(i).getJSONObject("snippet");
                         System.out.println("Got snippet");
                         interest.setName(snippet.getString("title"));
                         String channelID = snippet.getString("channelId");

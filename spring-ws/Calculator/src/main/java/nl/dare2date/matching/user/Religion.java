@@ -36,7 +36,7 @@ public enum Religion {
                 return currentValue;
             }
         }
-        return NOT_PUBLISHED;
+        return null;
     }
 
     public nl.dare2date.matching.orchestration.Religion toOrchestration() {

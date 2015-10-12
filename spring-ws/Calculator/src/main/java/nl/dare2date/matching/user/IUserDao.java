@@ -38,6 +38,12 @@ public interface IUserDao {
     void saveInterest(Interest interest);
 
     /**
+     * Deletes the interest
+     * @param interest the interest
+     */
+    void deleteInterest(Interest interest);
+
+    /**
      * Saves the social media information for a user
      * @param socialinfo the inforamtion to be stored
      */
