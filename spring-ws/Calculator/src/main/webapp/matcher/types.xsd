@@ -15,7 +15,7 @@
     <complexType name="StatusMessage">
         <all>
 			<element name="state" type="tns:MessageState"/>
-			<element name="message" type="NCName"/>
+			<element name="message" type="normalizedString"/>
         </all>
     </complexType>
 

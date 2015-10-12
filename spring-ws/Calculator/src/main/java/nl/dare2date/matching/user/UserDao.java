@@ -19,34 +19,38 @@ import java.util.List;
 public class UserDao implements IUserDao {
 
     @PersistenceContext
-    private EntityManagerFactory em;
+    private EntityManager em;
+
+
+    @PersistenceContext
+    private EntityManagerFactory factory;
 
     @Override
-    @Transactional
     public User getUser(long id) {
-        return em.createEntityManager().find(User.class, id);
+        return factory.createEntityManager().find(User.class, id);
     }
 
     @Override
     @Transactional
     public User saveData(User user) {
-        return em.createEntityManager().merge(user);
+        return em.merge(user);
     }
 
     @Override
     @Transactional
     public void saveInterest(Interest interest) {
-        em.createEntityManager().persist(interest);
+        em.persist(interest);
     }
 
     @Override
     @Transactional
-    public void deleteInterest(Interest interest){em.createEntityManager().remove(interest);}
+    public void deleteInterest(Interest interest){
+        em.remove(interest);}
 
     @Override
     @Transactional
     public void saveSocialMedia(SocialMediaInformation interest) {
-        em.createEntityManager().persist(interest);
+        em.persist(interest);
     }
 
     @Override
@@ -71,7 +75,7 @@ public class UserDao implements IUserDao {
             hql += " and education_level > :education_level";
         }
         //Create the query
-        Query query = em.createEntityManager().createQuery(hql);
+        Query query = factory.createEntityManager().createQuery(hql);
         //Protected way to input the parameters
         query.setParameter("user_id", ownId);
         query.setParameter("gender", prefs.getGender());

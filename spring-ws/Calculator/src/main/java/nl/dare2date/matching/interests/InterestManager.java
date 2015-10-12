@@ -46,12 +46,12 @@ public class InterestManager {
             currentUser.getConnectedSocialMedia().add(info);
             userDao.saveSocialMedia(info);
             userDao.saveData(currentUser);
-            //new Thread(new Runnable(){
-           //     @Override
-           //     public void run() {
+            new Thread(new Runnable(){
+                @Override
+                public void run() {
                     updateInterests(currentUser);
-            //    }
-           // }).start();
+                }
+            }).start();
 
         }
         return returnVal;
@@ -70,13 +70,13 @@ public class InterestManager {
                 for(Interest interest: updatedUser.getInterests())
                 {
                     if(interest.getSource()==connector.getType()){
-                        updatedUser.getInterests().remove(interest);
                         userDao.deleteInterest(interest);
+                        updatedUser.getInterests().remove(interest);
                     }
                 }
                 for (Interest interest : connector.getInterests(info)) {
-                    interest.setUser(user);
-                    user.getInterests().add(interest);
+                    interest.setUser(updatedUser);
+                    updatedUser.getInterests().add(interest);
                     userDao.saveInterest(interest);
                 }
                 updatedUser = userDao.saveData(updatedUser);
