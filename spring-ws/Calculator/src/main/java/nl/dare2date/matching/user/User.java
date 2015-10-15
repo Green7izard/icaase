@@ -169,7 +169,9 @@ public class User implements Serializable {
                 score++;
             }
         }
-        return new Match(this, (int)((double)score/getInterests().size())*100);
+        double calcScore = score;
+        calcScore= calcScore/((double)baseUser.getInterests().size());
+        return new Match(this, (int)(calcScore*100.d));
     }
 
     public boolean hasInterest(Interest interest)

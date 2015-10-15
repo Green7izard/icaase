@@ -18,7 +18,20 @@ import java.util.List;
  */
 public class FaceBookConnector implements SocialMediaConnector {
 
+    public FaceBookConnector()
+    {
+        this( new FacebookFactory());
+    }
+
+    protected FaceBookConnector(FacebookFactory fact)
+    {
+        factory = fact;
+    }
+
+    private FacebookFactory factory;
+
     //https://graph.facebook.com/oauth/access_token?client_id=1661710374113587&redirect_uri=http://localhost:8080&client_secret=20220f5ad0ecab259a29d07e5a873a51&code=public_profile user_about_me
+
 
     private static final String APP_ID = "1661710374113587";
     private static final String APP_SECRET = "20220f5ad0ecab259a29d07e5a873a51";
@@ -28,7 +41,7 @@ public class FaceBookConnector implements SocialMediaConnector {
         if (info == null || info.getAuthToken().isEmpty()) {
             return new StatusMessage(MessageState.INVALID_AUTH_TOKEN, "No token supplied!");
         }
-        Facebook facebook = new FacebookFactory().getInstance();
+        Facebook facebook = factory.getInstance();
         facebook.setOAuthAppId(APP_ID, APP_SECRET);
         facebook.setOAuthPermissions("public_profile, user_about_me");
         facebook.setOAuthAccessToken(new AccessToken(info.getAuthToken()));
@@ -75,7 +88,7 @@ public class FaceBookConnector implements SocialMediaConnector {
     @Override
     public List<Interest> getInterests(SocialMediaInformation information) {
         if (information.isValidated()) {
-            Facebook facebook = new FacebookFactory().getInstance();
+            Facebook facebook = factory.getInstance();
             facebook.setOAuthAppId(APP_ID, APP_SECRET);
             facebook.setOAuthPermissions("public_profile, user_about_me");
             facebook.setOAuthAccessToken(new AccessToken(information.getAuthToken()));

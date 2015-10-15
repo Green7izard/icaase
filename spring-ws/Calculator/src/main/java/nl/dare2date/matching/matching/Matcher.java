@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Matcher {
     private static final int THREADS = 8;
-    private static final int MIN_SCORE = 50;
+    private static final int MIN_SCORE = 49;
     private final IUserDao userDao;
 
     public Matcher(IUserDao userDao) {
@@ -94,6 +94,9 @@ public class Matcher {
                 Match match =userToMatch.match(baseUser);
                 if(match.scoreHigherThen(MIN_SCORE)) {
                     matches.add(match);
+                }
+                else{
+                    System.out.println("Rejected: "+ userToMatch.getName() + " with a score of: " + match.toOrchestration().getScore());
                 }
             }
             users=null;
