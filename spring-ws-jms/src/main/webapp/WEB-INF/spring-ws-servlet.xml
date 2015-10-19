@@ -5,7 +5,9 @@
        xmlns:sws="http://www.springframework.org/schema/web-services"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/web-services http://www.springframework.org/schema/web-services/web-services.xsd
-       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:jms="http://www.springframework.org/schema/jms">
     
     <context:component-scan base-package="nl.dare2date.matching"/>
     <sws:annotation-driven/>
@@ -43,5 +45,61 @@
 
     <bean id="interestManager" factory-bean="interestManagerFactory" factory-method="create"/>
     <bean id="interestManagerFactory" class="nl.dare2date.matching.interests.InterestManagerFactory"/>
+
+    <bean id="bridgedBroker" class="org.apache.activemq.broker.BrokerService"
+          init-method="start" destroy-method="stop">
+        <property name="brokerName" value="bridgedBroker"/>
+        <property name="persistent" value="true"/>
+        <property name="transportConnectorURIs">
+            <value>vm://localhost:7001</value>
+        </property>
+        <property name="jmsBridgeConnectors">
+            <bean class="org.apache.activemq.network.jms.JmsQueueConnector">
+                <property name="outboundQueueConnectionFactory">
+                    <bean class="org.apache.activemq.ActiveMQConnectionFactory">
+                        <property name="brokerURL"
+                                  value="failover:(tcp://destination-box:61616)?maxReconnectDelay=10" />
+                    </bean>
+                </property>
+                <property name="outboundQueueBridges">
+                    <list>
+                        <bean class="org.apache.activemq.network.jms.OutboundQueueBridge">
+                            <constructor-arg value="connector"/>
+                        </bean>
+                        <bean class="org.apache.activemq.network.jms.OutboundQueueBridge">
+                            <constructor-arg value="matching"/>
+                        </bean>
+                    </list>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="brokerConnectionFactory"
+          class="org.apache.activemq.ActiveMQConnectionFactory"
+          p:brokerURL="vm://localhost:7001" />
+
+    <bean id="cachingBrokerConnectionFactory"
+          class="org.springframework.jms.connection.CachingConnectionFactory"
+          p:targetConnectionFactory-ref="brokerConnectionFactory"
+          p:sessionCacheSize="10" />
+
+    <bean id="matchingdestination" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg value="matching" />
+    </bean>
+
+    <bean id="connectordestination" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg value="connector" />
+    </bean>
+
+    <bean id="matchingJMSTemplate"
+          class="org.springframework.jms.core.JmsTemplate"
+          p:connectionFactory-ref="cachingBrokerConnectionFactory"
+          p:defaultDestination-ref="matchingdestination" />
+
+    <bean id="connectorJMSTemplate"
+          class="org.springframework.jms.core.JmsTemplate"
+          p:connectionFactory-ref="cachingBrokerConnectionFactory"
+          p:defaultDestination-ref="connectordestination" />
 
 </beans>
