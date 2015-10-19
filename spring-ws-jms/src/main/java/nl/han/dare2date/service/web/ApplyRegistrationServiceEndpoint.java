@@ -22,8 +22,8 @@
 
 package nl.han.dare2date.service.web;
 
-import nl.han.dare2date.applyregistrationservice.ApplyRegistrationRequest;
-import nl.han.dare2date.applyregistrationservice.ApplyRegistrationResponse;
+//import nl.han.dare2date.applyregistrationservice.ApplyRegistrationRequest;
+//import nl.han.dare2date.applyregistrationservice.ApplyRegistrationResponse;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
@@ -35,9 +35,9 @@ public class ApplyRegistrationServiceEndpoint {
 	public ApplyRegistrationServiceEndpoint() {
 	}
 
-	@PayloadRoot(localPart = "ApplyRegistrationRequest", namespace = "http://www.han.nl/schemas/messages")
-        @ResponsePayload
-	public ApplyRegistrationResponse applyRegistration(@RequestPayload ApplyRegistrationRequest req) {
-		return new ApplyRegistrationResponse();
-	}
+	//@PayloadRoot(localPart = "ApplyRegistrationRequest", namespace = "http://www.han.nl/schemas/messages")
+    //    @ResponsePayload
+	//public ApplyRegistrationResponse applyRegistration(@RequestPayload ApplyRegistrationRequest req) {
+	//	return new ApplyRegistrationResponse();
+	//}
 }

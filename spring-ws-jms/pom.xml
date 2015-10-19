@@ -5,10 +5,10 @@
     
     <name>Dare2Date Apply Registration Service</name>
     <url>http://www.springframework.org/spring-ws</url>
-    
-    <groupId>nl.han.dare2date</groupId>
-    <artifactId>ApplyRegistrationService</artifactId>
-    <version>1.0</version>
+
+    <groupId>nl.dare2date</groupId>
+    <artifactId>matching</artifactId>
+    <version>0.1-SNAPSHOT</version>
     
     <packaging>war</packaging>
         
@@ -16,10 +16,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.ws.version>2.1.4.RELEASE</spring.ws.version>
         <spring.framework.version>4.0.5.RELEASE</spring.framework.version>
+        <hibernate.version>4.3.7.Final</hibernate.version>
     </properties>
 
     <build>
-        <finalName>applyregistrationservice</finalName>
+        <finalName>matchingService</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -43,9 +44,12 @@
                 <artifactId>maven-jaxb2-plugin</artifactId>
                 <version>0.9.0</version>
                 <configuration>
-                    <schemaDirectory>src/main/webapp/applyregistrationservice</schemaDirectory>
                     <bindingDirectory>src/main/resources</bindingDirectory>
-                    <generatePackage>nl.han.dare2date.applyregistrationservice</generatePackage>
+                    <generatePackage>nl.dare2date.matching.orchestration</generatePackage>
+                    <schemaDirectory>${basedir}/src/main/webapp/matcher</schemaDirectory>
+
+                    <!--<schemaDirectory>src/main/webapp/applyregistrationservice</schemaDirectory>
+                    <generatePackage>nl.han.dare2date.applyregistrationservice</generatePackage>-->
                     <extension>true</extension>
                     <plugins>
                         <plugin>
@@ -76,6 +80,14 @@
         </plugins>
     </build>
     <dependencies>
+
+        <!--Default java servlet api-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+        </dependency>
+
         <!--Start Spring-WS dependencies-->
         <!--Spring-WS-->
         <dependency>
@@ -98,6 +110,21 @@
             <version>5.7.0</version>
         </dependency>
         <!--End JMS dependencies-->
+
+
+        <!--Facebook api-->
+        <dependency>
+            <groupId>org.facebook4j</groupId>
+            <artifactId>facebook4j-core</artifactId>
+            <version>[2.3,)</version>
+        </dependency>
+
+        <!--JSON parser-->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20150729</version>
+        </dependency>
         
         <!--The Maven JAXB jaxb_commons plugin requires this dependency-->
         <dependency>
@@ -106,5 +133,73 @@
             <version>0.6.5</version>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>1.10.19</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-mockito</artifactId>
+            <version>1.6.3</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!--Start Persistance JPA/MySQL dependencies-->
+        <!--MySQL database driver used by Hibernate/c3p0-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.31</version>
+        </dependency>
+
+        <!--Hibernate ORM for persistance-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+        <!--Hibernate EntityManager provides the implementation of the JPA EntityManager-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jpa</artifactId>
+            <version>2.0.8</version>
+        </dependency>
+
+        <!--c3p0 is a connection pooler, it avoids creating new database connections
+        by mantaining a pool of open connections-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-c3p0</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>c3p0</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>0.9.1.2</version>
+        </dependency>
+
+        <!--Spring container managed transactions-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>4.0.5.RELEASE</version>
+        </dependency>
+        <!--End Persistance JPA/MySQL dependencies-->
+
     </dependencies>
 </project>

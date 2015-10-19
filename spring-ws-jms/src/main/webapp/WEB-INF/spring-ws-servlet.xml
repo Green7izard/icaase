@@ -7,7 +7,7 @@
        http://www.springframework.org/schema/web-services http://www.springframework.org/schema/web-services/web-services.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     
-    <context:component-scan base-package="nl.han.dare2date.service"/>
+    <context:component-scan base-package="nl.dare2date.matching"/>
     <sws:annotation-driven/>
     
     <sws:interceptors>
@@ -15,16 +15,33 @@
         <bean class="org.springframework.ws.soap.server.endpoint.interceptor.SoapEnvelopeLoggingInterceptor"/>
         <bean id="validatingInterceptor"
               class="org.springframework.ws.soap.server.endpoint.interceptor.PayloadValidatingInterceptor">
-            <property name="schema" value="/applyregistrationservice/messages.xsd"/>
+            <property name="schema" value="/matcher/messages.xsd"/>
             <property name="validateRequest" value="true"/>
             <property name="validateResponse" value="true"/>
         </bean>
     </sws:interceptors>
     
-    <sws:dynamic-wsdl id="applyregistrationservice" 
+    <sws:dynamic-wsdl id="matchingService"
                       portTypeName="Calculator"
-                      locationUri="/applyregistrationservice/"
-                      targetNamespace="http://www.han.nl/schemas/applyregistrationservice/definitions">
-        <sws:xsd location="/applyregistrationservice/messages.xsd"/>
+                      locationUri="/matching/"
+                      targetNamespace="http://www.dare2date.nl/matching">
+        <sws:xsd location="/matcher/messages.xsd"/>
     </sws:dynamic-wsdl>
+
+    <!--This bean gets used to create EntityManagers which can be used for Repositories/DAOs-->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="matcher"/>
+    </bean>
+    <!--This bean gets used to manage the transactions inside the EntityManagers, without it data would not get saved as transactions are never flushed-->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+
+    <!-- Small example of how to use a factory bean in Spring. Not really necessary for this case. -->
+    <bean id="matcher" factory-bean="matcherFactory" factory-method="create"/>
+    <bean id="matcherFactory" class="nl.dare2date.matching.matching.MatcherFactory"/>
+
+    <bean id="interestManager" factory-bean="interestManagerFactory" factory-method="create"/>
+    <bean id="interestManagerFactory" class="nl.dare2date.matching.interests.InterestManagerFactory"/>
+
 </beans>

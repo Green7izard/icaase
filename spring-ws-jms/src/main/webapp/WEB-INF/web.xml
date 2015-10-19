@@ -3,7 +3,16 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
          version="2.4">
 
-    <display-name>Archetype Created Web Application</display-name>
+    <display-name>Dare2Date Spring-WS-JMS service</display-name>
+
+    <servlet>
+        <servlet-name>cheater</servlet-name>
+        <servlet-class>nl.dare2date.cheating.CheatServer</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>cheater</servlet-name>
+        <url-pattern>/cheating/*</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>spring-ws</servlet-name>

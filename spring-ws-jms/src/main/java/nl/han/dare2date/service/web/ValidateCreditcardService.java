@@ -22,7 +22,7 @@
 
 package nl.han.dare2date.service.web;
 
-import nl.han.dare2date.applyregistrationservice.Creditcard;
+//import nl.han.dare2date.applyregistrationservice.Creditcard;
 
 /**
  * 
@@ -32,7 +32,7 @@ import nl.han.dare2date.applyregistrationservice.Creditcard;
  */
 public class ValidateCreditcardService {
 
-	public boolean validate(Creditcard cc) {
-		return false;
-	}
+	//public boolean validate(Creditcard cc) {
+		//return false;
+	//}
 }

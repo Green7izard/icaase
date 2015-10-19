@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://www.dare2date.nl/matching"
+        xmlns:tns="http://www.dare2date.nl/matching"
+        xmlns:types="http://www.dare2date.nl/types"
+        elementFormDefault="qualified">
+
+    <import namespace="http://www.dare2date.nl/types" schemaLocation="types.xsd"/>
+ 
+	<element name="getMatchRequest">
+        <complexType>
+            <all>
+                <element name="userID" type ="unsignedInt" minOccurs="1" maxOccurs="1"/>
+                <element name="gender" type="types:Gender" minOccurs="1" maxOccurs="1"/>
+                <element name="maxAge" type="unsignedInt" minOccurs="0" maxOccurs="1"/>
+                <element name="minAge" type="unsignedInt" minOccurs="0" maxOccurs="1"/>
+                <element name="maxWeight" type="unsignedInt" minOccurs="0" maxOccurs="1"/>
+                <element name="minWeight" type="unsignedInt" minOccurs="0" maxOccurs="1"/>
+                <element name="maxHeight" type="unsignedInt" minOccurs="0" maxOccurs="1"/>
+                <element name="minHeight" type="unsignedInt" minOccurs="0" maxOccurs="1"/>
+                <element name="country" type="NCName" minOccurs="0" maxOccurs="1"/>
+                <element name="city" type="NCName" minOccurs="0" maxOccurs="1"/>
+                <element name="religion" type="types:Religion" minOccurs="0" maxOccurs="1"/>
+                <element name="minimalEducationLevel" type="types:Educations" minOccurs="0" maxOccurs="1"/>
+            </all>
+        </complexType>	
+	</element>
+
+	<element name="getMatchResponse">
+        <complexType>
+            <sequence>
+                <element name="result" type="types:Match" minOccurs="0" maxOccurs="unbounded"/>
+            </sequence>
+        </complexType>	
+	</element>
+
+
+    <element name="connectSocialMediaRequest">
+        <complexType>
+            <all>
+                <element name="userID" type ="unsignedInt"/>
+                <element name="socialMediaType" type ="types:SocialMediaType"/>
+                <element name="socialMediaAuthenticationToken" type ="NCName"/>
+            </all>
+        </complexType>
+    </element>
+
+    <element name="connectSocialMediaResponse">
+        <complexType>
+            <all>
+                <element name="result" type="types:StatusMessage"/>
+            </all>
+        </complexType>
+    </element>
+</schema>

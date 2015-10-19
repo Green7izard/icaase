@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://www.dare2date.nl/types"
+        xmlns:tns="http://www.dare2date.nl/types"
+        elementFormDefault="qualified">
+
+    <complexType name="Match">
+        <all>
+            <element name="userID" type="unsignedInt"/>
+            <element name="name" type="NCName"/>
+            <element name="score" type="int"/>
+        </all>
+    </complexType>
+
+    <complexType name="StatusMessage">
+        <all>
+			<element name="state" type="tns:MessageState"/>
+			<element name="message" type="normalizedString"/>
+        </all>
+    </complexType>
+
+
+    <simpleType name="MessageState">
+        <restriction base="NCName">
+            <enumeration value="succeeded"/>
+            <enumeration value="timeOut"/>
+            <enumeration value="databaseError"/>
+            <enumeration value="invalidAuthToken"/>
+            <enumeration value="authTokenExpired"/>
+            <enumeration value="otherProblem"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="SocialMediaType">
+        <restriction base="NCName">
+            <enumeration value="FaceBook"/>
+            <enumeration value="YouTube"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="Educations">
+        <restriction base="NCName">
+            <enumeration value="elementary"/>
+            <enumeration value="VMBO"/>
+            <enumeration value="HAVO"/>
+            <enumeration value="VWO"/>
+            <enumeration value="MBO"/>
+            <enumeration value="HBO"/>
+            <enumeration value="WO"/>
+            <enumeration value="unknown"/>
+            <enumeration value="notPublished"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="Gender">
+        <restriction base="NCName">
+            <enumeration value="male"/>
+            <enumeration value="female"/>
+            <enumeration value="notPublished"/>
+            <enumeration value="unknown"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="Religion">
+        <restriction base="NCName">
+            <!-- source: https://en.wikipedia.org/wiki/Major_religious_groups -->
+            <enumeration value="Christianity"/>
+            <enumeration value="Islam"/>
+            <enumeration value="Hinduism"/>
+            <enumeration value="Buddhism"/>
+            <enumeration value="Taoism"/>
+            <enumeration value="Shinto"/>
+            <enumeration value="Sikhism"/>
+            <enumeration value="Judaism"/>
+            <enumeration value="Shamanism"/>
+            <enumeration value="Caodaism"/>
+            <enumeration value="BahaIFaith"/>
+            <enumeration value="Jainism"/>
+            <enumeration value="Cheondoism"/>
+            <enumeration value="Hoahaoism"/>
+            <enumeration value="Tenriism"/>
+            <enumeration value="Agnostic"/>
+            <enumeration value="Atheism"/>
+            <enumeration value="other"/>
+            <enumeration value="notPublished"/>
+        </restriction>
+    </simpleType>
+</schema>
