@@ -67,6 +67,9 @@
                         <arg>-Xannotate</arg>
                         <arg>-XtoString</arg>
                     </args>
+                    <bindingIncludes>
+                        <bindingInclude>binding.xjb</bindingInclude>
+                    </bindingIncludes>
                 </configuration>
                 <executions>
                     <execution>
