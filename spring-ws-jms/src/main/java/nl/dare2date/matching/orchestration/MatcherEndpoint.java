@@ -3,12 +3,17 @@ package nl.dare2date.matching.orchestration;
 import nl.dare2date.matching.interests.InterestManager;
 import nl.dare2date.matching.matching.Matcher;
 import nl.dare2date.matching.matching.Preferences;
+import nl.han.dare2date.service.jms.util.JMSUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
+import javax.jms.Connection;
+import javax.jms.JMSException;
+import javax.naming.NamingException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,17 +27,14 @@ public class MatcherEndpoint {
     private static final String NAMESPACE_URI = "http://www.dare2date.nl/matching";
 
     private final Matcher matcher;
-    private final InterestManager manager;
 
     /**
      * Create the endpoint
      * @param matcher the matcher for matching
-     * @param interestManager the interest manager for connecting social media
      */
     @Autowired
-    public MatcherEndpoint(Matcher matcher, InterestManager interestManager) {
+    public MatcherEndpoint(Matcher matcher) {
         this.matcher = matcher;
-        this.manager = interestManager;
     }
 
     /**
@@ -109,12 +111,57 @@ public class MatcherEndpoint {
     @PayloadRoot(localPart = "connectSocialMediaRequest", namespace = NAMESPACE_URI)
     @ResponsePayload
     public ConnectSocialMediaResponse connectSocialMedia(@RequestPayload ConnectSocialMediaRequest matchRequest) {
-
         ConnectSocialMediaResponse response = new ConnectSocialMediaResponse();
-        response.setResult(manager.connectSocialMedia(matchRequest.getUserID(),
+        Connection con = JMSUtil.getConnection();
+        try {
+            SocialMediaRequestor requestor = new SocialMediaRequestor(con);
+            requestor.setPayload(matchRequest);
+            requestor.send();
+            Serializable jmsResponse=null;
+            do{
+                jmsResponse =requestor.getResponse();
+                Thread.sleep(100);
+            }while(jmsResponse==null);
+            if(jmsResponse instanceof StatusMessage)
+            {
+                response.setResult((StatusMessage) jmsResponse);
+                return response;
+            }
+            else
+            {
+                StatusMessage message = new StatusMessage();
+                message.setMessage("Received nothing usefull from the que "+jmsResponse);
+                message.setState(MessageState.OTHER_PROBLEM);
+                response.setResult(message);
+                return response;
+            }
+        } catch (NamingException e) {
+            e.printStackTrace();
+            StatusMessage message = new StatusMessage();
+            message.setMessage(e.getMessage());
+            message.setState(MessageState.OTHER_PROBLEM);
+            response.setResult(message);
+            return response;
+        } catch (JMSException e) {
+            e.printStackTrace();
+            StatusMessage message = new StatusMessage();
+            message.setMessage(e.getMessage());
+            message.setState(MessageState.OTHER_PROBLEM);
+            response.setResult(message);
+            return response;
+        } catch(Exception e)
+        {
+            e.printStackTrace();
+            StatusMessage message = new StatusMessage();
+            message.setMessage(e.getMessage());
+            message.setState(MessageState.OTHER_PROBLEM);
+            response.setResult(message);
+            return response;
+        }
+        /*response.setResult(manager.connectSocialMedia(matchRequest.getUserID(),
                 //Point to the Version in the interests because that one is used for internal systems
                 nl.dare2date.matching.interests.socialMediaConnection.SocialMediaType.fromOrchestration(matchRequest.getSocialMediaType()),
                 matchRequest.getSocialMediaAuthenticationToken()).toOrchestration());
-        return response;
+        return response;*/
     }
 }

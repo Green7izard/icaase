@@ -72,6 +72,14 @@
                         <bean class="org.apache.activemq.network.jms.OutboundQueueBridge">
                             <constructor-arg value="matching"/>
                         </bean>
+
+                        <bean class="org.apache.activemq.network.jms.OutboundQueueBridge">
+                            <constructor-arg value="matching_response"/>
+                        </bean>
+
+                        <bean class="org.apache.activemq.network.jms.OutboundQueueBridge">
+                            <constructor-arg value="errorque"/>
+                        </bean>
                     </list>
                 </property>
             </bean>
@@ -82,7 +90,7 @@
           class="org.apache.activemq.ActiveMQConnectionFactory"
           p:brokerURL="vm://localhost:7001" />
 
-    <bean id="cachingBrokerConnectionFactory"
+    <bean id="ConnectionFactory"
           class="org.springframework.jms.connection.CachingConnectionFactory"
           p:targetConnectionFactory-ref="brokerConnectionFactory"
           p:sessionCacheSize="10" />
@@ -95,14 +103,12 @@
         <constructor-arg value="connector" />
     </bean>
 
-    <bean id="matchingJMSTemplate"
-          class="org.springframework.jms.core.JmsTemplate"
-          p:connectionFactory-ref="cachingBrokerConnectionFactory"
-          p:defaultDestination-ref="matchingdestination" />
+    <bean id="matchingrespone" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg value="matching_response" />
+    </bean>
 
-    <bean id="connectorJMSTemplate"
-          class="org.springframework.jms.core.JmsTemplate"
-          p:connectionFactory-ref="cachingBrokerConnectionFactory"
-          p:defaultDestination-ref="connectordestination" />
+    <bean id="errordestination" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg value="errorque" />
+    </bean>
 
 </beans>
