@@ -42,10 +42,10 @@ public class UserDao implements IUserDao {
         em.persist(interest);
     }
 
-    @Override
+    /*@Override
     @Transactional
     public void deleteInterest(Interest interest){
-        em.remove(interest);}
+        em.remove(interest);}*/
 
     @Override
     @Transactional

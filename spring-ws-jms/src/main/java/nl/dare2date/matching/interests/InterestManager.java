@@ -5,6 +5,9 @@ import nl.dare2date.matching.orchestration.MessageState;
 import nl.dare2date.matching.user.IUserDao;
 import nl.dare2date.matching.user.User;
 
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
+
 /**
  * Manages the interests of a user
  */
@@ -67,12 +70,9 @@ public class InterestManager {
         {
             if(info.isValidated()) {
                SocialMediaConnector connector = factory.getConnector(info.getType());
-                for(Interest interest: updatedUser.getInterests())
-                {
-                    if(interest.getSource()==connector.getType()){
-                        userDao.deleteInterest(interest);
-                        updatedUser.getInterests().remove(interest);
-                    }
+                for (Iterator<Interest> it = updatedUser.getInterests().iterator(); it.hasNext(); ) {
+                    Interest interest = it.next();
+                    updatedUser.getInterests().remove(interest);
                 }
                 for (Interest interest : connector.getInterests(info)) {
                     interest.setUser(updatedUser);

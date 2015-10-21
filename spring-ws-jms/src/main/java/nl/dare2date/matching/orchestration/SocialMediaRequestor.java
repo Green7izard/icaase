@@ -16,9 +16,10 @@ import java.util.Enumeration;
 public class SocialMediaRequestor extends Requestor {
 
     private ConnectSocialMediaRequest payload;
+    private String correlationID;
 
     public SocialMediaRequestor(Connection connection) throws NamingException, JMSException {
-        super(connection, "matching", "matching_response", "errorque");
+        super(connection, "matching", "matchingresponse", "errorque");
     }
 
     @Override
@@ -27,17 +28,32 @@ public class SocialMediaRequestor extends Requestor {
             return null;
         }
         else{
-            return new BasicObjectMessage(payload);
+            BasicObjectMessage message =new BasicObjectMessage(payload);
+            try {
+                message.setJMSCorrelationID(this.correlationID);
+            } catch (JMSException e) {
+                e.printStackTrace();
+            }
+            return message;
         }
 
     }
 
     @Override
     public Serializable getResponse() {
-        return null;
+        try {
+            return this.getReplyMessage().getObject();
+        } catch (JMSException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public void setPayload(ConnectSocialMediaRequest payload) {
         this.payload = payload;
+    }
+
+    public void setCorrelationID(String correlationID) {
+        this.correlationID = correlationID;
     }
 }

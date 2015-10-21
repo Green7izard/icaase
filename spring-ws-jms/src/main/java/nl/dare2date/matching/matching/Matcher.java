@@ -1,10 +1,12 @@
 package nl.dare2date.matching.matching;
 
+import nl.dare2date.matching.interests.Interest;
 import nl.dare2date.matching.user.IUserDao;
 import nl.dare2date.matching.user.User;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -89,7 +91,8 @@ public class Matcher {
         @Override
         public void run() {
             matches = new ArrayList<Match>(users.size());
-            for (User userToMatch : users) {
+            for (Iterator<User> it = users.iterator(); it.hasNext(); ) {
+                User userToMatch = it.next();
                 users.remove(userToMatch);
                 Match match =userToMatch.match(baseUser);
                 if(match.scoreHigherThen(MIN_SCORE)) {

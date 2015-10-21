@@ -11,6 +11,7 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 import javax.naming.NamingException;
 import java.io.Serializable;
@@ -27,14 +28,16 @@ public class MatcherEndpoint {
     private static final String NAMESPACE_URI = "http://www.dare2date.nl/matching";
 
     private final Matcher matcher;
+    private final ConnectionFactory factory;
 
     /**
      * Create the endpoint
      * @param matcher the matcher for matching
      */
     @Autowired
-    public MatcherEndpoint(Matcher matcher) {
+    public MatcherEndpoint(Matcher matcher, ConnectionFactory ConnectionFactory) {
         this.matcher = matcher;
+        factory=ConnectionFactory;
     }
 
     /**
@@ -112,16 +115,14 @@ public class MatcherEndpoint {
     @ResponsePayload
     public ConnectSocialMediaResponse connectSocialMedia(@RequestPayload ConnectSocialMediaRequest matchRequest) {
         ConnectSocialMediaResponse response = new ConnectSocialMediaResponse();
-        Connection con = JMSUtil.getConnection("Connection"+matchRequest.getUserID());
         try {
-            SocialMediaRequestor requestor = new SocialMediaRequestor(con);
+            SocialMediaRequestor requestor = new SocialMediaRequestor(getConnection());
             requestor.setPayload(matchRequest);
+            requestor.setCorrelationID(matchRequest.getUserID() + "Request");
             requestor.send();
             Serializable jmsResponse=null;
-            do{
-                jmsResponse =requestor.getResponse();
-                Thread.sleep(100);
-            }while(jmsResponse==null);
+            requestor.receiveSync();
+            jmsResponse =requestor.getResponse();
             if(jmsResponse instanceof StatusMessage)
             {
                 response.setResult((StatusMessage) jmsResponse);
@@ -163,5 +164,11 @@ public class MatcherEndpoint {
                 nl.dare2date.matching.interests.socialMediaConnection.SocialMediaType.fromOrchestration(matchRequest.getSocialMediaType()),
                 matchRequest.getSocialMediaAuthenticationToken()).toOrchestration());
         return response;*/
+    }
+
+    private Connection getConnection() throws JMSException {
+        Connection con = factory.createConnection();
+        con.start();
+        return con;
     }
 }

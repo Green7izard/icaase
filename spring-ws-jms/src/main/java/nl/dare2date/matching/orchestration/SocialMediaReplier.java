@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
 import javax.naming.NamingException;
@@ -22,11 +23,16 @@ public class SocialMediaReplier extends Replier {
     private Serializable reply;
 
     @Autowired
-    public SocialMediaReplier(InterestManager interestManager, Connection connection) throws NamingException, JMSException {
-        super(connection, "matching", "errorque");
+    public SocialMediaReplier(InterestManager interestManager, ConnectionFactory ConnectionFactory) throws NamingException, JMSException {
+        super(getConnection(ConnectionFactory), "matching", "errorque");
         manager=interestManager;
     }
 
+    private static Connection getConnection(ConnectionFactory factory) throws JMSException {
+        Connection con = factory.createConnection();
+        con.start();
+        return con;
+    }
     @Override
     public ObjectMessage getReplyMessage() {
         if(reply ==null) {

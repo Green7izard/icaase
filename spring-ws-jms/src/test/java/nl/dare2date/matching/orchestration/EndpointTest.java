@@ -8,6 +8,10 @@ import org.junit.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
+import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
+import javax.jms.JMSException;
+
 
 /**
  * Created by Bas on 5-10-2015.
@@ -16,6 +20,7 @@ public class EndpointTest {
 
     MatcherEndpoint endpoint;
     Matcher matcher;
+    ConnectionFactory factory;
     /**
      * Prepare some steps before
      */
@@ -23,8 +28,9 @@ public class EndpointTest {
     public void setUp(){
         //Mock the matcher so that it does nothing
         matcher = Mockito.mock(Matcher.class);
+        factory = Mockito.mock(ConnectionFactory.class);
         //Create the endpoint with the mocks
-        endpoint = new MatcherEndpoint(matcher);
+        endpoint = new MatcherEndpoint(matcher, factory);
     }
 
     /**
@@ -60,4 +66,5 @@ public class EndpointTest {
         Assert.assertEquals(message, response.getResult().getMessage());
         Assert.assertEquals(state, response.getResult().getState());
     }
+
 }

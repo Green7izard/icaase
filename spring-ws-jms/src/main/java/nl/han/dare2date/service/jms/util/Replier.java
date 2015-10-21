@@ -82,7 +82,7 @@ public abstract class Replier implements MessageListener {
 				MessageProducer replyProducer = session.createProducer(replyDestination);
 
 				ObjectMessage replyMessage = getReplyMessage();
-				replyMessage.setJMSCorrelationID(requestMessage.getJMSMessageID());
+				replyMessage.setJMSCorrelationID(requestMessage.getJMSCorrelationID());
 				replyProducer.send(replyMessage);
 
 				System.out.println("Sent reply");
@@ -99,7 +99,7 @@ public abstract class Replier implements MessageListener {
 				System.out.println("\tCorrel. ID: " + message.getJMSCorrelationID());
 				System.out.println("\tReply to:   " + message.getJMSReplyTo());
 
-				message.setJMSCorrelationID(message.getJMSMessageID());
+				message.setJMSCorrelationID(message.getJMSCorrelationID());
 				invalidProducer.send(message);
 
 				System.out.println("Sent to invalid message queue");

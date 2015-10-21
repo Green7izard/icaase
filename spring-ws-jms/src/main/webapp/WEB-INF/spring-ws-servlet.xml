@@ -49,46 +49,11 @@
     <bean id="interestManager" factory-bean="interestManagerFactory" factory-method="create"/>
     <bean id="interestManagerFactory" class="nl.dare2date.matching.interests.InterestManagerFactory"/>
 
-    <bean id="bridgedBroker" class="org.apache.activemq.broker.BrokerService"
-          init-method="start" destroy-method="stop">
-        <property name="brokerName" value="bridgedBroker"/>
-        <property name="persistent" value="true"/>
-        <property name="transportConnectorURIs">
-            <value>vm://localhost:7001</value>
-        </property>
-        <property name="jmsBridgeConnectors">
-            <bean class="org.apache.activemq.network.jms.JmsQueueConnector">
-                <property name="outboundQueueConnectionFactory">
-                    <bean class="org.apache.activemq.ActiveMQConnectionFactory">
-                        <property name="brokerURL"
-                                  value="failover:(vm://localhost:61616)?maxReconnectDelay=10" />
-                    </bean>
-                </property>
-                <property name="outboundQueueBridges">
-                    <list>
-                        <bean class="org.apache.activemq.network.jms.OutboundQueueBridge">
-                            <constructor-arg value="connector"/>
-                        </bean>
-                        <bean class="org.apache.activemq.network.jms.OutboundQueueBridge">
-                            <constructor-arg value="matching"/>
-                        </bean>
-
-                        <bean class="org.apache.activemq.network.jms.OutboundQueueBridge">
-                            <constructor-arg value="matching_response"/>
-                        </bean>
-
-                        <bean class="org.apache.activemq.network.jms.OutboundQueueBridge">
-                            <constructor-arg value="errorque"/>
-                        </bean>
-                    </list>
-                </property>
-            </bean>
-        </property>
-    </bean>
 
     <bean id="brokerConnectionFactory"
           class="org.apache.activemq.ActiveMQConnectionFactory"
           p:brokerURL="vm://localhost:7001" />
+
 
     <bean id="ConnectionFactory"
           class="org.springframework.jms.connection.CachingConnectionFactory"
@@ -110,5 +75,7 @@
     <bean id="errordestination" class="org.apache.activemq.command.ActiveMQQueue">
         <constructor-arg value="errorque" />
     </bean>
+
+    <bean id="socialMediaReplier" class = "nl.dare2date.matching.orchestration.SocialMediaReplier"/>
 
 </beans>
