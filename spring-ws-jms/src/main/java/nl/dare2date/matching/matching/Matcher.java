@@ -93,7 +93,7 @@ public class Matcher {
             matches = new ArrayList<Match>(users.size());
             for (Iterator<User> it = users.iterator(); it.hasNext(); ) {
                 User userToMatch = it.next();
-                users.remove(userToMatch);
+                it.remove();
                 Match match =userToMatch.match(baseUser);
                 if(match.scoreHigherThen(MIN_SCORE)) {
                     matches.add(match);

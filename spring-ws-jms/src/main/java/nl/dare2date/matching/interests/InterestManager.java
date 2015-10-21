@@ -7,6 +7,7 @@ import nl.dare2date.matching.user.User;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Manages the interests of a user
@@ -41,13 +42,24 @@ public class InterestManager {
         StatusMessage returnVal = factory.validate(info);
         if (info.isValidated()) {
             final User currentUser = userDao.getUser(userID);
+            SocialMediaInformation oldInfo = null;
             if(currentUser==null)
             {
                 return new StatusMessage(MessageState.OTHER_PROBLEM, "UserID not correct");
             }
-            info.setUser(currentUser);
-            currentUser.getConnectedSocialMedia().add(info);
-            userDao.saveSocialMedia(info);
+            for(SocialMediaInformation information: currentUser.getConnectedSocialMedia())
+            {
+                if(information.getType() == info.getType())
+                {
+                    information.setAuthToken(info.getAuthToken());
+                    oldInfo=information;
+                }
+            }
+            if(oldInfo==null) {
+                info.setUser(currentUser);
+                currentUser.getConnectedSocialMedia().add(info);
+                userDao.saveSocialMedia(info);
+            }
             userDao.saveData(currentUser);
             new Thread(new Runnable(){
                 @Override
@@ -70,16 +82,26 @@ public class InterestManager {
         {
             if(info.isValidated()) {
                SocialMediaConnector connector = factory.getConnector(info.getType());
-                for (Iterator<Interest> it = updatedUser.getInterests().iterator(); it.hasNext(); ) {
-                    Interest interest = it.next();
-                    updatedUser.getInterests().remove(interest);
+                List<Interest> interests = connector.getInterests(info);
+                if(interests!=null && !interests.isEmpty()) {
+                    for (Iterator<Interest> it = updatedUser.getInterests().iterator(); it.hasNext(); ) {
+                        Interest interest = it.next();
+                        try {
+                            userDao.deleteInterest(interest);
+                        }
+                        catch(Exception e)
+                        {
+                            System.out.println("Caught: "+e.getMessage());
+                        }
+                        it.remove();
+                    }
+                    for (Interest interest : interests) {
+                        interest.setUser(updatedUser);
+                        updatedUser.getInterests().add(interest);
+                        userDao.saveInterest(interest);
+                    }
+                    updatedUser = userDao.saveData(updatedUser);
                 }
-                for (Interest interest : connector.getInterests(info)) {
-                    interest.setUser(updatedUser);
-                    updatedUser.getInterests().add(interest);
-                    userDao.saveInterest(interest);
-                }
-                updatedUser = userDao.saveData(updatedUser);
             }
         }
     }
