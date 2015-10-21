@@ -103,7 +103,7 @@
         <constructor-arg value="connector" />
     </bean>
 
-    <bean id="matchingrespone" class="org.apache.activemq.command.ActiveMQQueue">
+    <bean id="matchingresponse" class="org.apache.activemq.command.ActiveMQQueue">
         <constructor-arg value="matching_response" />
     </bean>
 

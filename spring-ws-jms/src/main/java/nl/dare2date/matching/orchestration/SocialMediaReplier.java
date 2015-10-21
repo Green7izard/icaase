@@ -3,6 +3,7 @@ package nl.dare2date.matching.orchestration;
 import nl.dare2date.matching.interests.InterestManager;
 import nl.han.dare2date.service.jms.util.Replier;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.jms.Connection;
 import javax.jms.JMSException;
@@ -13,6 +14,7 @@ import java.io.Serializable;
 /**
  * Created by Bas on 21-10-2015.
  */
+@Service
 public class SocialMediaReplier extends Replier {
 
     private final InterestManager manager;
@@ -27,8 +29,9 @@ public class SocialMediaReplier extends Replier {
 
     @Override
     public ObjectMessage getReplyMessage() {
-        if(reply ==null)
-        return null;
+        if(reply ==null) {
+            return null;
+        }
         else{
             return new BasicObjectMessage(reply);
         }

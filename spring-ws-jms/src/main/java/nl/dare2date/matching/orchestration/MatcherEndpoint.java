@@ -112,7 +112,7 @@ public class MatcherEndpoint {
     @ResponsePayload
     public ConnectSocialMediaResponse connectSocialMedia(@RequestPayload ConnectSocialMediaRequest matchRequest) {
         ConnectSocialMediaResponse response = new ConnectSocialMediaResponse();
-        Connection con = JMSUtil.getConnection();
+        Connection con = JMSUtil.getConnection("Connection"+matchRequest.getUserID());
         try {
             SocialMediaRequestor requestor = new SocialMediaRequestor(con);
             requestor.setPayload(matchRequest);

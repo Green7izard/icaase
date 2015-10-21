@@ -18,7 +18,7 @@ public class SocialMediaRequestor extends Requestor {
     private ConnectSocialMediaRequest payload;
 
     public SocialMediaRequestor(Connection connection) throws NamingException, JMSException {
-        super(connection, "matching", "matching", "errorque");
+        super(connection, "matching", "matching_response", "errorque");
     }
 
     @Override
