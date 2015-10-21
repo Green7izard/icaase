@@ -29,15 +29,17 @@ public class MatcherEndpoint {
 
     private final Matcher matcher;
     private final ConnectionFactory factory;
+    private final SocialMediaRequestor requestor;
 
     /**
      * Create the endpoint
      * @param matcher the matcher for matching
      */
     @Autowired
-    public MatcherEndpoint(Matcher matcher, ConnectionFactory ConnectionFactory) {
+    public MatcherEndpoint(Matcher matcher, ConnectionFactory ConnectionFactory) throws JMSException, NamingException {
         this.matcher = matcher;
         factory=ConnectionFactory;
+        requestor = new SocialMediaRequestor(getConnection());
     }
 
     /**
@@ -116,9 +118,8 @@ public class MatcherEndpoint {
     public ConnectSocialMediaResponse connectSocialMedia(@RequestPayload ConnectSocialMediaRequest matchRequest) {
         ConnectSocialMediaResponse response = new ConnectSocialMediaResponse();
         try {
-            SocialMediaRequestor requestor = new SocialMediaRequestor(getConnection());
             requestor.setPayload(matchRequest);
-            requestor.setCorrelationID(matchRequest.getUserID() + "Request");
+            requestor.setCorrelationID("User:"+matchRequest.getUserID()+"|For:"+matchRequest.getSocialMediaType().toString() + "|Time:"+System.nanoTime());
             requestor.send();
             Serializable jmsResponse=null;
             requestor.receiveSync();
@@ -136,13 +137,6 @@ public class MatcherEndpoint {
                 response.setResult(message);
                 return response;
             }
-        } catch (NamingException e) {
-            e.printStackTrace();
-            StatusMessage message = new StatusMessage();
-            message.setMessage(e.getMessage());
-            message.setState(MessageState.OTHER_PROBLEM);
-            response.setResult(message);
-            return response;
         } catch (JMSException e) {
             e.printStackTrace();
             StatusMessage message = new StatusMessage();

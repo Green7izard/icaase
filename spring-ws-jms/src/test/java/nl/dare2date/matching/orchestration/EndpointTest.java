@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
+import javax.naming.NamingException;
 
 
 /**
@@ -25,7 +26,7 @@ public class EndpointTest {
      * Prepare some steps before
      */
     @Before
-    public void setUp(){
+    public void setUp() throws NamingException, JMSException {
         //Mock the matcher so that it does nothing
         matcher = Mockito.mock(Matcher.class);
         factory = Mockito.mock(ConnectionFactory.class);
