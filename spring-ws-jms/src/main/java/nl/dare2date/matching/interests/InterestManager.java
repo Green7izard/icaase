@@ -88,6 +88,7 @@ public class InterestManager {
                 if(interests!=null && !interests.isEmpty()) {
                     for (Iterator<Interest> it = updatedUser.getInterests().iterator(); it.hasNext(); ) {
                         Interest interest = it.next();
+                        it.remove();
                         try {
                             userDao.deleteInterest(interest);
                         }
@@ -95,14 +96,13 @@ public class InterestManager {
                         {
                             System.out.println("Caught: "+e.getMessage());
                         }
-                        it.remove();
                     }
                     for (Interest interest : interests) {
                         interest.setUser(updatedUser);
                         updatedUser.getInterests().add(interest);
                         userDao.saveInterest(interest);
                     }
-                    updatedUser = userDao.saveData(updatedUser);
+                    //updatedUser = userDao.saveData(updatedUser);
                 }
             }
         }

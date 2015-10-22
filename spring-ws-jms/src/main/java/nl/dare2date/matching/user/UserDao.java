@@ -45,7 +45,8 @@ public class UserDao implements IUserDao {
     @Override
     @Transactional
     public void deleteInterest(Interest interest){
-        em.remove(interest);}
+        em.remove(em.contains(interest) ? interest : em.merge(interest));
+    }
 
     @Override
     @Transactional
