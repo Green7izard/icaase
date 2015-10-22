@@ -49,9 +49,13 @@ public class UserDao implements IUserDao {
 
     @Override
     @Transactional
-    public void saveSocialMedia(SocialMediaInformation interest) {
-        em.persist(interest);
+    public void saveSocialMedia(SocialMediaInformation socialinfo) {
+        em.persist(socialinfo);
     }
+
+    @Override
+    @Transactional
+    public void mergeSocialMedia(SocialMediaInformation socialinfo){em.merge(socialinfo);}
 
     @Override
     public List<User> getUsers(long ownId, Preferences prefs) {

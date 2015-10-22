@@ -53,6 +53,8 @@ public class InterestManager {
                 {
                     information.setAuthToken(info.getAuthToken());
                     oldInfo=information;
+                    userDao.mergeSocialMedia(oldInfo);
+                    break;
                 }
             }
             if(oldInfo==null) {

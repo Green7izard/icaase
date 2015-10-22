@@ -48,4 +48,10 @@ public interface IUserDao {
      * @param socialinfo the inforamtion to be stored
      */
     void saveSocialMedia(SocialMediaInformation socialinfo);
+
+    /**
+     * Saves the social media information for a user to a existing information
+     * @param socialinfo the inforamtion to be stored
+     */
+    void mergeSocialMedia(SocialMediaInformation socialinfo);
 }
