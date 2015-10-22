@@ -52,4 +52,14 @@
             </all>
         </complexType>
     </element>
+
+    <element name="getSingleMatch">
+        <complexType>
+            <all>
+                <element name="userID" type ="unsignedInt" minOccurs="1" maxOccurs="1"/>
+                <element name="matchTo" type ="unsignedInt" minOccurs="1" maxOccurs="1"/>
+            </all>
+        </complexType>
+    </element>
+
 </schema>

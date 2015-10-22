@@ -62,7 +62,6 @@ public class InterestManager {
                 currentUser.getConnectedSocialMedia().add(info);
                 userDao.saveSocialMedia(info);
             }
-            userDao.saveData(currentUser);
             new Thread(new Runnable(){
                 @Override
                 public void run() {
