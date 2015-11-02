@@ -127,6 +127,7 @@ public class MatcherEndpoint {
             if(jmsResponse instanceof StatusMessage)
             {
                 response.setResult((StatusMessage) jmsResponse);
+                updateForUser(matchRequest.getUserID());
                 return response;
             }
             else
@@ -158,6 +159,18 @@ public class MatcherEndpoint {
                 nl.dare2date.matching.interests.socialMediaConnection.SocialMediaType.fromOrchestration(matchRequest.getSocialMediaType()),
                 matchRequest.getSocialMediaAuthenticationToken()).toOrchestration());
         return response;*/
+    }
+
+    private void updateForUser(long userID) {
+        UpdateInterests request = new UpdateInterests();
+        request.setUserID(userID);
+        requestor.setPayload(request);
+        requestor.setCorrelationID("User:" + userID + "|UpdateInterests|Time:" + System.nanoTime());
+        try {
+            requestor.send();
+        } catch (JMSException e) {
+            e.printStackTrace();
+        }
     }
 
     private Connection getConnection() throws JMSException {

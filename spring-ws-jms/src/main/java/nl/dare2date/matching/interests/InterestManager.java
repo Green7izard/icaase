@@ -62,12 +62,12 @@ public class InterestManager {
                 currentUser.getConnectedSocialMedia().add(info);
                 userDao.saveSocialMedia(info);
             }
-            new Thread(new Runnable(){
+            /*new Thread(new Runnable(){
                 @Override
                 public void run() {
                     updateInterests(currentUser);
                 }
-            }).start();
+            }).start();*/
 
         }
         return returnVal;
@@ -105,5 +105,14 @@ public class InterestManager {
                 }
             }
         }
+    }
+
+
+    /**
+     * Get user by ID
+     * @param userID the userID
+     */
+    public void updateInterests(long userID) {
+        updateInterests(userDao.getUser(userID));
     }
 }

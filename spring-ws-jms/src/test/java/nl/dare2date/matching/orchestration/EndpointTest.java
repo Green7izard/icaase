@@ -78,9 +78,9 @@ public class EndpointTest {
         //Mockito.verify(interestManager).connectSocialMedia(Matchers.eq(userId), Matchers.eq(nl.dare2date.matching.interests.socialMediaConnection.SocialMediaType.fromOrchestration(type)), Matchers.eq(password));
 
         ArgumentCaptor<BasicObjectMessage> argument = ArgumentCaptor.forClass(BasicObjectMessage.class);
-        Mockito.verify(producer).send(argument.capture());
-        Assert.assertEquals(request, argument.getValue().getObject());
-        Assert.assertTrue(argument.getValue().getJMSCorrelationID().contains("User:5|For:FACE_BOOK|Time:"));
+        Mockito.verify(producer, Mockito.times(2)).send(argument.capture());
+        Assert.assertEquals(request, argument.getAllValues().get(0).getObject());
+        Assert.assertTrue(argument.getAllValues().get(0).getJMSCorrelationID().contains("User:5|For:FACE_BOOK|Time:"));
 
         //Check the response
         Assert.assertNotNull(response);

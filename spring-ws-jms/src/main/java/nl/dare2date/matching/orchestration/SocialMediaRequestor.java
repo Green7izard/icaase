@@ -15,7 +15,7 @@ import java.util.Enumeration;
  */
 public class SocialMediaRequestor extends Requestor {
 
-    private ConnectSocialMediaRequest payload;
+    private Serializable payload;
     private String correlationID;
 
     public SocialMediaRequestor(Connection connection) throws NamingException, JMSException {
@@ -49,7 +49,7 @@ public class SocialMediaRequestor extends Requestor {
         }
     }
 
-    public void setPayload(ConnectSocialMediaRequest payload) {
+    public void setPayload(Serializable payload) {
         this.payload = payload;
     }
 
